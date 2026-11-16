@@ -213,7 +213,89 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
 
 .about-path { color: var(--muted); font-size: 15px; }
 .affiliations { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-.affiliations li { padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); font-size: 13px; font-weight: 500; }
+.affiliations-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 14px; }
+.affiliations-row .affiliations { margin-top: 0; }
+.affiliations-label { color: var(--muted); font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.affiliations li { display: flex; }
+.affiliations button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px 5px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 500 13px/1.7 var(--sans);
+  cursor: pointer;
+  transition: color .2s ease, border-color .2s ease, background-color .2s ease, transform .2s ease;
+}
+/* Document icon: signals that the pill opens something. */
+.affiliations button::after {
+  content: '';
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.75 1.75h5.5l3 3v9.5h-8.5z'/%3E%3Cpath d='M9 1.75V5h3.25M6 8.5h4M6 11.25h4'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.75 1.75h5.5l3 3v9.5h-8.5z'/%3E%3Cpath d='M9 1.75V5h3.25M6 8.5h4M6 11.25h4'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.affiliations button:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); transform: translateY(-1px); }
+.affiliations button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Reference-letter dialog */
+body:has(.doc-dialog[open]) { overflow: hidden; }
+.doc-dialog {
+  width: min(880px, calc(100vw - 32px));
+  height: min(92vh, 1100px);
+  height: min(92dvh, 1100px);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.doc-dialog[open] { display: flex; flex-direction: column; animation: dialog-in .22s ease; }
+.doc-dialog::backdrop { background: rgb(11 13 18 / 55%); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.doc-dialog.is-short { width: min(460px, calc(100vw - 32px)); height: auto; }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(10px) scale(.98); } }
+
+.doc-dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 22px 18px 18px 24px; border-bottom: 1px solid var(--line); }
+.doc-dialog-kicker { color: var(--accent); font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.doc-dialog-title { margin-top: 10px; color: var(--ink); font: 400 1.55rem/1.15 var(--display); }
+.doc-dialog-tools { display: flex; flex-shrink: 0; align-items: center; gap: 6px; }
+.doc-dialog-open { display: inline-flex; gap: 6px; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); font-size: 13px; font-weight: 500; white-space: nowrap; transition: border-color .2s ease; }
+.doc-dialog-open:hover { border-color: var(--ink); }
+.doc-dialog-open[hidden] { display: none; }
+.doc-dialog-close { display: grid; width: 38px; height: 38px; padding: 0; place-items: center; border: 0; border-radius: 10px; background: transparent; color: var(--muted); cursor: pointer; transition: color .2s ease, background-color .2s ease; }
+.doc-dialog-close:hover { background: var(--accent-soft); color: var(--ink); }
+.doc-dialog-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.doc-dialog-close svg { width: 20px; height: 20px; }
+
+.doc-dialog-body { flex: 1; min-height: 0; background: var(--bg); }
+.doc-dialog.is-short .doc-dialog-body { background: none; }
+.doc-dialog-frame { display: block; width: 100%; height: 100%; border: 0; }
+.doc-dialog-message { padding: 22px 24px 26px; color: var(--muted); font-size: 15px; }
+.doc-dialog-soon { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 28px 24px 4px; text-align: center; }
+.doc-dialog-soon .doc-dialog-message { padding: 0 0 22px; }
+/* The PNG has wide transparent margins; crop to the visible mark (1914×782) and set it on a
+   white plate so the dark-blue logo stays legible in dark mode. */
+.doc-dialog-logo {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  aspect-ratio: 1914 / 782;
+  object-fit: cover;
+  box-sizing: content-box;
+  padding: 18px 26px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
 
 
 /* Publication */
@@ -359,6 +441,9 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
   .entry { grid-template-columns: 1fr; gap: 4px; }
   .split { grid-template-columns: 1fr; gap: 36px; }
   .contact-row { flex-wrap: wrap; }
+  .doc-dialog { border-radius: 16px; }
+  .doc-dialog-head { padding: 18px 12px 14px 18px; }
+  .doc-dialog-title { font-size: 1.3rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -8,6 +8,62 @@ for (const link of document.querySelectorAll('[data-email-user]')) {
   if (link.hasAttribute('data-email-text')) link.textContent = address;
 }
 
+// Affiliation pills open the matching reference letter (PDF) in a modal dialog.
+const docDialog = document.getElementById('doc-dialog');
+if (docDialog && typeof docDialog.showModal === 'function') {
+  const title = docDialog.querySelector('.doc-dialog-title');
+  const body = docDialog.querySelector('.doc-dialog-body');
+  const openLink = docDialog.querySelector('.doc-dialog-open');
+  // Android Chrome and some mobile browsers cannot render PDFs inside a page.
+  const canEmbedPdf = navigator.pdfViewerEnabled !== false;
+
+  const message = (text) => {
+    const p = document.createElement('p');
+    p.className = 'doc-dialog-message';
+    p.textContent = text;
+    return p;
+  };
+
+  for (const button of document.querySelectorAll('.affiliations [data-doc-title]')) {
+    button.addEventListener('click', () => {
+      const src = button.dataset.doc;
+      title.textContent = button.dataset.docTitle;
+      openLink.hidden = !src;
+      if (src) openLink.href = src;
+      docDialog.classList.toggle('is-short', !src || !canEmbedPdf);
+
+      if (!src) {
+        const soon = document.createElement('div');
+        soon.className = 'doc-dialog-soon';
+        if (button.dataset.docLogo) {
+          const logo = document.createElement('img');
+          logo.className = 'doc-dialog-logo';
+          logo.src = button.dataset.docLogo;
+          logo.alt = `${button.dataset.docTitle} logo`;
+          soon.append(logo);
+        }
+        soon.append(message('Will be available soon.'));
+        body.replaceChildren(soon);
+      } else if (canEmbedPdf) {
+        const frame = document.createElement('iframe');
+        frame.className = 'doc-dialog-frame';
+        frame.title = `Reference letter — ${button.dataset.docTitle}`;
+        frame.src = `${src}#view=FitH`;
+        body.replaceChildren(frame);
+      } else {
+        body.replaceChildren(message('This browser can’t display PDFs inside the page. Use “Open PDF” to view it.'));
+      }
+      docDialog.showModal();
+    });
+  }
+
+  docDialog.querySelector('.doc-dialog-close').addEventListener('click', () => docDialog.close());
+  // A click on the backdrop lands on the <dialog> itself; clicks on its content land on children.
+  docDialog.addEventListener('click', (e) => { if (e.target === docDialog) docDialog.close(); });
+  // Drop the iframe on close so the PDF is unloaded.
+  docDialog.addEventListener('close', () => body.replaceChildren());
+}
+
 const tocLinks = [...document.querySelectorAll('.toc a')];
 const sectionObserver = new IntersectionObserver((entries) => {
   for (const entry of entries) {

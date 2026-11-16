@@ -42,9 +42,14 @@
           <p class="kicker">Machine Learning Researcher</p>
           <h1>Michael Hanna</h1>
           <p class="role">Machine learning for Biomedicine</p>
-          <ul class="affiliations" aria-label="Research affiliations">
-            <li>Pfizer</li><li>Max Planck</li><li>DKFZ / NCT</li>
-          </ul>
+          <div class="affiliations-row">
+            <span class="affiliations-label" id="affiliations-label">Zeugnis</span>
+            <ul class="affiliations" aria-labelledby="affiliations-label">
+              <li><button type="button" data-doc-title="Pfizer" data-doc-logo="Pfizer_Logo.png" aria-haspopup="dialog" title="Zeugnis — coming soon">Pfizer</button></li>
+              <li><button type="button" data-doc-title="Max Planck Institute of Molecular Cell Biology and Genetics" data-doc="Max-Planck%20Institute%20Zeugnis.pdf" aria-haspopup="dialog" title="View Zeugnis">Max Planck</button></li>
+              <li><button type="button" data-doc-title="DKFZ / NCT · Translational Surgical Oncology" data-doc="NCT-DKFZ-Zeugnis.pdf" aria-haspopup="dialog" title="View Zeugnis">DKFZ / NCT</button></li>
+            </ul>
+          </div>
 
           <nav class="toc" aria-label="Sections">
             <ul>
@@ -276,5 +281,21 @@
         </footer>
       </main>
     </div>
+
+    <dialog class="doc-dialog" id="doc-dialog" aria-labelledby="doc-dialog-title">
+      <div class="doc-dialog-head">
+        <div>
+          <p class="doc-dialog-kicker">Reference letter</p>
+          <h2 class="doc-dialog-title" id="doc-dialog-title"></h2>
+        </div>
+        <div class="doc-dialog-tools">
+          <a class="doc-dialog-open" href="#" target="_blank" rel="noopener" hidden>Open PDF <span aria-hidden="true">↗</span></a>
+          <button type="button" class="doc-dialog-close" aria-label="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="doc-dialog-body"></div>
+    </dialog>
   </body>
 </html>
