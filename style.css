@@ -203,12 +203,54 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
 }
 .about-intro { margin-bottom: 8px; }
 
-.themes { margin: 22px 0 34px; border-top: 1px solid var(--line); }
-.themes li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; padding: 20px 0; border-bottom: 1px solid var(--line); }
-.theme-index { padding-top: 3px; color: var(--accent-2); font: 500 12px/1.6 var(--mono); }
-.themes h3 { margin-bottom: 4px; color: var(--ink); font-size: 1.05rem; font-weight: 600; }
+/* One colour per corner of the triangle, shared by the diagram, the theme list and the project tags. */
+.t1 { --v: var(--accent); }
+.t2 { --v: var(--accent-2); }
+.t3 { --v: var(--warm); }
+
+/* Triangle: the outer one is science (model, simulation, physics); the inner one holds the
+   machine-learning conjugate of each corner. SVG units scale with the figure width. */
+.triad { margin: 34px 0 8px; }
+.triad svg { display: block; width: 100%; max-width: 480px; height: auto; margin: 0 auto; overflow: visible; }
+.triad-frame { fill: none; stroke: var(--muted); stroke-opacity: .5; stroke-width: 1.25; stroke-linejoin: round; }
+.triad-loop { fill: var(--accent-soft); stroke: url(#triad-grad); stroke-width: 1.75; stroke-linejoin: round; }
+.triad-stop-a { stop-color: var(--accent); }
+.triad-stop-b { stop-color: var(--accent-2); }
+.triad-flow { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 5 95; opacity: .7; animation: triad-flow 7s linear infinite; }
+@keyframes triad-flow { to { stroke-dashoffset: -100; } }
+.triad-arrow { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.triad-arrow-sci { stroke: var(--muted); }
+.triad-arrow-ai { stroke: var(--accent); }
+.triad-spoke { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 2 5; stroke-linecap: round; }
+.triad-ring { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
+.triad-halo { fill: var(--v); opacity: .18; }
+.triad-dot, .triad-num { fill: var(--v); }
+.triad-mark { transform-box: fill-box; transform-origin: center; transition: transform .25s ease; }
+.triad-sci { fill: var(--muted); font: 500 17px var(--mono); letter-spacing: .12em; }
+.triad-ai { fill: var(--ink); font: 400 26px var(--display); transition: fill .2s ease; }
+.triad-center { fill: var(--muted); font: italic 400 20px var(--display); }
+/* Hovering a theme below lights up its corner. */
+#about:has(.themes > .t1:hover) .triad-v.t1 .triad-mark,
+#about:has(.themes > .t2:hover) .triad-v.t2 .triad-mark,
+#about:has(.themes > .t3:hover) .triad-v.t3 .triad-mark { transform: scale(1.4); }
+#about:has(.themes > .t1:hover) .triad-v.t1 .triad-ai,
+#about:has(.themes > .t2:hover) .triad-v.t2 .triad-ai,
+#about:has(.themes > .t3:hover) .triad-v.t3 .triad-ai { fill: var(--v); }
+.triad-caption { display: grid; gap: 4px; max-width: 480px; margin: 16px auto 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.triad-key { display: inline-block; width: 9px; height: 9px; margin-right: 9px; border-radius: 50%; vertical-align: 1px; }
+.triad-key.is-sci { border: 1.5px solid var(--muted); }
+.triad-key.is-ai { background: var(--grad); }
+
+.themes { margin: 30px 0 34px; border-top: 1px solid var(--line); }
+.themes > li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.theme-index { padding-top: 3px; color: var(--v, var(--accent-2)); font: 500 12px/1.6 var(--mono); }
+.themes h3 { color: var(--ink); font-size: 1.05rem; font-weight: 600; }
+.theme-sci { color: var(--muted); font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.theme-conj { margin: 0 2px; color: var(--muted); font-weight: 400; }
 .themes p { color: var(--text); font-size: 15px; }
-.theme-link { display: inline-flex; gap: 6px; margin-top: 8px; color: var(--muted); font: 500 12px/1.4 var(--mono); letter-spacing: .04em; transition: color .2s ease; }
+.themes .theme-tagline { margin: 2px 0 6px; color: var(--v, var(--accent)); font: italic 400 1.15rem/1.35 var(--display); }
+.theme-links { display: flex; flex-wrap: wrap; gap: 2px 20px; margin-top: 10px; }
+.theme-link { display: inline-flex; gap: 6px; color: var(--muted); font: 500 12px/1.4 var(--mono); letter-spacing: .04em; transition: color .2s ease; }
 .theme-link:hover { color: var(--accent); }
 
 .about-path { color: var(--muted); font-size: 15px; }
@@ -279,6 +321,10 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 .doc-dialog-body { flex: 1; min-height: 0; background: var(--bg); }
 .doc-dialog.is-short .doc-dialog-body { background: none; }
 .doc-dialog-frame { display: block; width: 100%; height: 100%; border: 0; }
+/* Full-size project animation; the GIFs are drawn on white. */
+.doc-dialog.is-media { width: min(960px, calc(100vw - 32px)); height: auto; }
+.doc-dialog.is-media .doc-dialog-body { display: grid; place-items: center; padding: 16px; overflow: auto; background: #fff; }
+.doc-dialog-media { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(92vh - 140px); max-height: calc(92dvh - 140px); }
 .doc-dialog-message { padding: 22px 24px 26px; color: var(--muted); font-size: 15px; }
 .doc-dialog-soon { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 28px 24px 4px; text-align: center; }
 .doc-dialog-soon .doc-dialog-message { padding: 0 0 22px; }
@@ -350,6 +396,166 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
 .tags li { padding: 5px 11px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font: 500 11.5px/1.3 var(--mono); }
+
+/* Projects slider: a horizontal scroll-snap track. script.js adds tabs/arrows behaviour,
+   marks the slider .is-ready and sets the track height to the active slide. */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.slider { --i: 0; --n: 6; container-type: inline-size; }
+
+.slider-tabs { position: relative; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.slider-tabs a {
+  flex-shrink: 0;
+  padding: 6px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font: 500 13px/1.5 var(--sans);
+  white-space: nowrap;
+  transition: color .2s ease, border-color .2s ease, background-color .2s ease;
+}
+.slider-tabs a:hover { border-color: var(--ink); color: var(--ink); }
+.slider-tabs a[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+
+/* The active panel sits in the middle; --peek of the track's padding on each side shows the
+   neighbouring panels. Panels stretch to the tallest one, so the size never changes. */
+.slider-track {
+  --peek: 56px;
+  --gap: 14px;
+  position: relative;
+  display: flex;
+  gap: var(--gap);
+  margin: -6px -24px -8px;
+  padding: 6px var(--peek) 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.slider-track::-webkit-scrollbar { display: none; }
+/* Clicks on a peeking (inert) panel land on the track and move to that panel. */
+.slider.is-ready .slider-track { cursor: pointer; }
+
+.slide {
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgb(17 24 39 / 4%), 0 10px 24px -18px rgb(17 24 39 / 30%);
+  cursor: auto;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  transition: opacity .3s ease;
+}
+.slider.is-ready .slide:not(.is-active) { opacity: .45; }
+
+/* Fixed 2:1 frame: every GIF is scaled to fit it, whatever its shape, so all panels match.
+   The GIFs are drawn on white, so the frame stays white in both themes. */
+.slide-media { position: relative; display: block; aspect-ratio: 2 / 1; border-bottom: 1px solid var(--line); background: #fff; }
+.slide-media img { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); object-fit: contain; }
+a.slide-media { cursor: zoom-in; }
+a.slide-media:focus-visible { outline-offset: -4px; }
+.slide-zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgb(17 24 39 / 72%);
+  color: #fff;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.slide-zoom svg { width: 14px; height: 14px; }
+.slide-media:hover .slide-zoom, .slide-media:focus-visible .slide-zoom { opacity: 1; transform: none; }
+@media (hover: none) { .slide-zoom { opacity: 1; transform: none; } }
+
+/* Stand-in for a project without an animation yet: its pipeline as four steps. */
+.slide-media.is-steps { display: grid; place-items: center; padding: 18px; background: radial-gradient(closest-side, var(--accent-soft), transparent) var(--bg); }
+.scene-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; width: 100%; counter-reset: step; }
+.scene-steps li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  animation: step-glow 8s ease-in-out infinite;
+}
+.scene-steps li:nth-child(2) { animation-delay: 2s; }
+.scene-steps li:nth-child(3) { animation-delay: 4s; }
+.scene-steps li:nth-child(4) { animation-delay: 6s; }
+.scene-steps li::before { counter-increment: step; content: '0' counter(step); color: var(--accent-2); font: 500 11px/1.4 var(--mono); }
+.scene-steps li:not(:last-child)::after { content: '→'; position: absolute; top: 50%; right: -9px; color: var(--muted); font-size: 13px; transform: translate(50%, -50%); }
+.scene-steps b { color: var(--ink); font-size: 14px; font-weight: 600; line-height: 1.35; }
+.scene-steps span { color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+@keyframes step-glow { 0%, 30%, 100% { border-color: var(--line); } 10%, 20% { border-color: var(--accent); } }
+
+.slide-body { display: flex; flex: 1; flex-direction: column; padding: 24px 26px 26px; }
+.slide-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--muted); font: 500 12px/1.5 var(--mono); letter-spacing: .04em; }
+.slide-theme { color: var(--v, var(--accent-2)); letter-spacing: .1em; text-transform: uppercase; }
+.slide-title { margin-top: 14px; color: var(--ink); font: 400 clamp(1.45rem, 2vw, 1.7rem)/1.2 var(--display); letter-spacing: -.005em; }
+.slide-hook { margin-top: 6px; color: var(--accent); font-size: 15px; font-weight: 500; }
+.slide-text { margin-top: 12px; font-size: 15px; }
+.slide-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px 18px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.slide-points dt { color: var(--ink); font: 500 11px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.slide-points dd { margin-top: 3px; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.slide-question { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--warm); color: var(--ink); font: italic 400 1.1rem/1.4 var(--display); }
+.slide-note { margin-top: 14px; color: var(--muted); font: 400 12px/1.5 var(--mono); }
+.slide-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 20px; }
+.btn-sm { padding: 8px 15px; font-size: 13px; }
+
+.slider-controls { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+.slider:not(.is-ready) .slider-controls { display: none; }
+.slider-count { color: var(--muted); font: 500 12px/1 var(--mono); letter-spacing: .08em; white-space: nowrap; }
+.slider-count [data-slide-current] { color: var(--ink); }
+.slider-progress { position: relative; flex: 1; height: 1px; background: var(--line); }
+.slider-progress span {
+  position: absolute;
+  top: -.5px;
+  left: calc(var(--i) * 100% / var(--n));
+  width: calc(100% / var(--n));
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad);
+  transition: left .35s ease;
+}
+.slider-arrows { display: flex; gap: 8px; }
+.slider-arrows button {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color .2s ease, opacity .2s ease;
+}
+.slider-arrows button:hover:not(:disabled) { border-color: var(--ink); }
+.slider-arrows button:disabled { opacity: .35; cursor: default; }
+.slider-arrows button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.slider-arrows svg { width: 18px; height: 18px; }
+
+@container (max-width: 540px) {
+  .slide-media.is-steps { padding: 12px; }
+  .scene-steps { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .scene-steps li { padding: 7px 10px; }
+  .scene-steps li:not(:last-child)::after, .scene-steps span { display: none; }
+  .slide-body { padding: 22px 20px 24px; }
+}
 
 .more-link { display: inline-flex; gap: 8px; margin-top: 22px; padding-bottom: 2px; border-bottom: 1px solid var(--line); color: var(--ink); font-weight: 500; transition: border-color .2s ease; }
 .more-link:hover { border-color: var(--ink); }
@@ -441,6 +647,9 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
   .entry { grid-template-columns: 1fr; gap: 4px; }
   .split { grid-template-columns: 1fr; gap: 36px; }
   .contact-row { flex-wrap: wrap; }
+  .slider-track { --peek: 36px; --gap: 12px; }
+  .slider-tabs { flex-wrap: nowrap; margin: 0 -24px 14px; padding: 0 24px 2px; overflow-x: auto; scrollbar-width: none; }
+  .slider-tabs::-webkit-scrollbar { display: none; }
   .doc-dialog { border-radius: 16px; }
   .doc-dialog-head { padding: 18px 12px 14px 18px; }
   .doc-dialog-title { font-size: 1.3rem; }
@@ -449,4 +658,5 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  .triad-flow { display: none; }
 }

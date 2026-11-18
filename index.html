@@ -91,30 +91,109 @@
         <section id="about" aria-labelledby="about-title">
           <h2 class="section-label" id="about-title"><span>01</span>About</h2>
           <p class="about-lead">I develop machine learning models that learn structured <em>representations</em> of complex biological systems, the <em>dynamics</em> of molecular systems and capture the <em>structure</em> of chemical space.</p>
-          <p class="about-intro">I am passionate about self-supervised learning, cross-modal representation learning, generative modeling, and geometric deep learning. Three themes run through it:</p>
+          <p class="about-intro">I am passionate about self-supervised learning, cross-modal representation learning, generative modeling and geometric deep learning.</p>
+          
+
+          <figure class="triad">
+            <svg viewBox="0 0 600 430" role="img" aria-labelledby="triad-title triad-desc">
+              <title id="triad-title">Three corners of the work</title>
+              <desc id="triad-desc">Two nested triangles around a biological system. The outer corners are the ways science pictures a system: model, simulation and physics. The inner corners are their machine-learning conjugates: representation, generation, and constraint and understanding, linked in one loop.</desc>
+              <defs>
+                <linearGradient id="triad-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" class="triad-stop-a"/>
+                  <stop offset="1" class="triad-stop-b"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Outer triangle: science. Model → Simulation → Physics → Model. -->
+              <path class="triad-frame" d="M112 340 L488 340 L300 104 Z"/>
+              <g class="triad-arrow triad-arrow-sci">
+                <path d="M-3.5 -4.5 2.5 0 -3.5 4.5" transform="translate(300 340)"/>
+                <path d="M-3.5 -4.5 2.5 0 -3.5 4.5" transform="translate(394 222) rotate(-128.5)"/>
+                <path d="M-3.5 -4.5 2.5 0 -3.5 4.5" transform="translate(206 222) rotate(128.5)"/>
+              </g>
+
+              <!-- Inner triangle: the machine-learning conjugates, run as one loop. -->
+              <path class="triad-loop" d="M202.2 302.2 L397.8 302.2 L300 179.5 Z"/>
+              <path class="triad-flow" d="M202.2 302.2 L397.8 302.2 L300 179.5 Z" pathLength="100"/>
+              <g class="triad-arrow triad-arrow-ai">
+                <path d="M-3.5 -4.5 2.5 0 -3.5 4.5" transform="translate(300 302.2)"/>
+                <path d="M-3.5 -4.5 2.5 0 -3.5 4.5" transform="translate(348.9 240.9) rotate(-128.6)"/>
+                <path d="M-3.5 -4.5 2.5 0 -3.5 4.5" transform="translate(251.1 240.9) rotate(128.6)"/>
+              </g>
+              <text class="triad-center" x="300" y="262" text-anchor="middle">biological</text>
+              <text class="triad-center" x="300" y="284" text-anchor="middle">system</text>
+
+              <!-- Each corner: science ring, dashed link, conjugate dot, labels. -->
+              <g class="triad-v t1">
+                <line class="triad-spoke" x1="112" y1="340" x2="202.2" y2="302.2"/>
+                <circle class="triad-mark triad-ring" cx="112" cy="340" r="8"/>
+                <circle class="triad-mark triad-halo" cx="202.2" cy="302.2" r="12"/>
+                <circle class="triad-mark triad-dot" cx="202.2" cy="302.2" r="6"/>
+                <text class="triad-sci" x="112" y="384" text-anchor="middle"><tspan class="triad-num">01</tspan> · MODEL</text>
+                <text class="triad-ai" x="112" y="416" text-anchor="middle">Representation</text>
+              </g>
+              <g class="triad-v t2">
+                <line class="triad-spoke" x1="488" y1="340" x2="397.8" y2="302.2"/>
+                <circle class="triad-mark triad-ring" cx="488" cy="340" r="8"/>
+                <circle class="triad-mark triad-halo" cx="397.8" cy="302.2" r="12"/>
+                <circle class="triad-mark triad-dot" cx="397.8" cy="302.2" r="6"/>
+                <text class="triad-sci" x="488" y="384" text-anchor="middle"><tspan class="triad-num">02</tspan> · SIMULATION</text>
+                <text class="triad-ai" x="488" y="416" text-anchor="middle">Generation</text>
+              </g>
+              <g class="triad-v t3">
+                <line class="triad-spoke" x1="300" y1="104" x2="300" y2="179.5"/>
+                <circle class="triad-mark triad-ring" cx="300" cy="104" r="8"/>
+                <circle class="triad-mark triad-halo" cx="300" cy="179.5" r="12"/>
+                <circle class="triad-mark triad-dot" cx="300" cy="179.5" r="6"/>
+                <text class="triad-sci" x="300" y="38" text-anchor="middle"><tspan class="triad-num">03</tspan> · PHYSICS</text>
+                <text class="triad-ai" x="300" y="72" text-anchor="middle">Constraint &amp; understanding</text>
+              </g>
+            </svg>
+            <figcaption class="triad-caption">
+              <span><i class="triad-key is-sci" aria-hidden="true"></i>Outer: how science pictures a system — model it, simulate it, test it against physics.</span>
+              <span><i class="triad-key is-ai" aria-hidden="true"></i>Inner: the machine-learning conjugate of each corner, run as one loop — represent, generate, constrain.</span>
+            </figcaption>
+          </figure>
 
           <ol class="themes">
-            <li>
+            <li class="t1">
               <span class="theme-index">01</span>
               <div>
-                <h3>Generative models for molecules</h3>
-                <p>Property-guided, E(3)-equivariant diffusion that steers generation toward sparse, unexplored regions of chemical space.</p>
-                <a class="theme-link" href="#publication">QALPA <span aria-hidden="true">→</span></a>
+                <h3><span class="theme-sci">Model</span> <span class="theme-conj" aria-hidden="true">⟷</span><span class="sr-only">, and its machine-learning conjugate:</span> Representation</h3>
+                <p class="theme-tagline">Learn real-world structure.</p>
+                <p>A scientific model is a hand-built representation of a system; its learned conjugate is discovered from data. I learn self-supervised, cross-modal embeddings from unlabeled views of the same sample, build on pretrained foundation models, and keep representations stable and informative.</p>
+                <ul class="theme-links">
+                  <li><a class="theme-link" href="#project-jepa">Cross-modal JEPA <span aria-hidden="true">→</span></a></li>
+                  <li><a class="theme-link" href="#project-huggingligand">HuggingLigand <span aria-hidden="true">→</span></a></li>
+                  <li><a class="theme-link" href="#project-notch">Notch surrogate <span aria-hidden="true">→</span></a></li>
+                </ul>
               </div>
             </li>
-            <li>
+            <li class="t2">
               <span class="theme-index">02</span>
               <div>
-                <h3>Cross-model and self-supervised representations</h3>
-                <p>Learning joint predictive representations from cross-model data without labels, and keeping them stable and informative. </p>
+                <h3><span class="theme-sci">Simulation</span> <span class="theme-conj" aria-hidden="true">⟷</span><span class="sr-only">, and its machine-learning conjugate:</span> Generation</h3>
+                <p class="theme-tagline">Create data where it is thin.</p>
+                <p>Simulation runs a model forward; a generative model learns to do the same from examples. I use property-guided, E(3)-equivariant diffusion and geometry-driven scene synthesis to produce data in the sparse regions that measurement rarely reaches.</p>
+                <ul class="theme-links">
+                  <li><a class="theme-link" href="#project-qalpa">QALPA <span aria-hidden="true">→</span></a></li>
+                  <li><a class="theme-link" href="#project-surgical">Surgical scenes <span aria-hidden="true">→</span></a></li>
+                  <li><a class="theme-link" href="#project-photoacoustics">Photoacoustics <span aria-hidden="true">→</span></a></li>
+                </ul>
               </div>
             </li>
-            <li>
+            <li class="t3">
               <span class="theme-index">03</span>
               <div>
-                <h3>Physics in the loop</h3>
-                <p>Coupling learning with quantum chemistry and mechanistic models, so that models are checked against — and improved by — physical evaluation.</p>
-                <a class="theme-link" href="#projects">Projects <span aria-hidden="true">→</span></a>
+                <h3><span class="theme-sci">Physics</span> <span class="theme-conj" aria-hidden="true">⟷</span><span class="sr-only">, and its machine-learning conjugate:</span> Constraint &amp; understanding</h3>
+                <p class="theme-tagline">Physics and mechanism in the loop.</p>
+                <p>Physics is the check on the other two corners. Coupling learning with quantum chemistry, mechanistic ODEs and multiphysics simulation keeps models honest — checked against, and improved by, physical evaluation — and keeps what they learn interpretable.</p>
+                <ul class="theme-links">
+                  <li><a class="theme-link" href="#project-qalpa">QALPA <span aria-hidden="true">→</span></a></li>
+                  <li><a class="theme-link" href="#project-notch">Notch surrogate <span aria-hidden="true">→</span></a></li>
+                  <li><a class="theme-link" href="#project-photoacoustics">Photoacoustics <span aria-hidden="true">→</span></a></li>
+                </ul>
               </div>
             </li>
           </ol>
@@ -158,32 +237,155 @@
 
         <section id="projects" aria-labelledby="projects-title">
           <h2 class="section-label" id="projects-title"><span>03</span>Selected projects</h2>
-          <div class="list">
-            <article class="card">
-              <p class="card-meta">Course project</p>
-              <h3 class="card-title"><a href="https://github.com/mikeHayah/qalpa/tree/active-learn" target="_blank" rel="noopener noreferrer">QALPA — Property-guided molecular generation <span class="arrow" aria-hidden="true">↗</span></a></h3>
-              <p>End-to-end generation pipeline with candidate filtering, geometry optimization and quantum-chemical evaluation, plus an interactive interface for user-guided navigation of molecular property landscapes.</p>
-              <ul class="tags"><li>Equivariant diffusion</li><li>Active learning</li><li>MACE · SO3LR</li><li>FHI-aims</li></ul>
-            </article>
-            <article class="card">
-              <p class="card-meta">Course project</p>
-              <h3 class="card-title"><a href="https://github.com/mikeHayah/Mechanistic-BayseFlowNN" target="_blank" rel="noopener noreferrer">Hybrid mechanistic–neural modeling of tissue morphogenesis <span class="arrow" aria-hidden="true">↗</span></a></h3>
-              <p>BayesFlow-based neural surrogates for ODE models of Notch signaling, integrated into cellular Potts simulations of lateral inhibition and tissue morphogenesis.</p>
-              <ul class="tags"><li>BayesFlow</li><li>Neural surrogates</li><li>ODEs</li><li>Cellular Potts</li></ul>
-            </article>
-            <article class="card">
-              <p class="card-meta">Course project</p>
-              <h3 class="card-title"><a href="https://github.com/mikeHayah/HuggingLigand" target="_blank" rel="noopener noreferrer">HuggingLigand — Protein–ligand binding affinity <span class="arrow" aria-hidden="true">↗</span></a></h3>
-              <p>Binding-affinity prediction from ProtT5-XL protein-sequence embeddings and ChemBERTa molecular representations, trained on curated BindingDB data.</p>
-              <ul class="tags"><li>ProtT5-XL</li><li>ChemBERTa</li><li>BindingDB</li><li>Transformers</li></ul>
-            </article>
-            <article class="card">
-              <p class="card-meta">DKFZ / NCT · Translational Surgical Oncology</p>
-              <h3 class="card-title"><a href="https://github.com/mikeHayah/NCT-TSO-nonrigid-data-generation-pipeline" target="_blank" rel="noopener noreferrer">Non-rigid surgical scene generation <span class="arrow" aria-hidden="true">↗</span></a></h3>
-              <p>Synthetic intraoperative scenes of deformable organs — geometry-driven anatomy, organ and camera motion, and emulated imaging conditions for surgical robotics and computer vision.</p>
-              <ul class="tags"><li>Computational geometry</li><li>Blender Geometry Nodes</li><li>Synthetic data</li></ul>
-            </article>
+
+          <div class="slider" data-slider role="region" aria-roledescription="carousel" aria-labelledby="projects-title">
+            <div class="slider-tabs" role="tablist" aria-label="Choose a project">
+              <a role="tab" id="tab-jepa" href="#project-jepa" aria-controls="project-jepa">Cross-modal JEPA</a>
+              <a role="tab" id="tab-qalpa" href="#project-qalpa" aria-controls="project-qalpa">QALPA</a>
+              <a role="tab" id="tab-huggingligand" href="#project-huggingligand" aria-controls="project-huggingligand">HuggingLigand</a>
+              <a role="tab" id="tab-notch" href="#project-notch" aria-controls="project-notch">Notch surrogate</a>
+              <a role="tab" id="tab-photoacoustics" href="#project-photoacoustics" aria-controls="project-photoacoustics">Photoacoustics</a>
+              <a role="tab" id="tab-surgical" href="#project-surgical" aria-controls="project-surgical">Surgical scenes</a>
+            </div>
+
+            <div class="slider-track">
+              <article class="slide" id="project-jepa" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-jepa">
+                <a class="slide-media" href="media/cross-modal-jepa.gif" data-zoom>
+                  <img src="media/cross-modal-jepa.gif" width="884" height="284" loading="lazy" decoding="async" alt="Animation: two views of the same sample pass through their own encoders; each predictor maps one view's embedding onto the other's, and the prediction error falls from 0.84 to 0.05 while the embedding spread stays high, so the representation does not collapse.">
+                  <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="sr-only">Enlarge animation</span>
+                </a>
+                <div class="slide-body">
+                  <p class="slide-meta"><span class="slide-theme t1">01 Representation</span><span>Pfizer · Medicine Design · 2026</span></p>
+                  <h3 class="slide-title">Cross-modal JEPA for mass spectrometry</h3>
+                  <p class="slide-hook">Different views of the same data can find each other.</p>
+                  <p class="slide-text">Self-supervised representations of mass-spectrometry data: each of two views of the same sample is predicted from the other in representation space. The raw signal is never reconstructed, so no capacity is spent on noise.</p>
+                  <dl class="slide-points">
+                    <div><dt>Cross-modal JEPA</dt><dd>Joint-embedding predictive learning without labels</dd></div>
+                    <div><dt>Stable training</dt><dd>Strategies that keep representations from collapsing</dd></div>
+                    <div><dt>Task-shaped encoders</dt><dd>Architectures shaped by what the downstream task needs</dd></div>
+                  </dl>
+                  <ul class="tags"><li>Self-supervised learning</li><li>JEPA</li><li>Mass spectrometry</li></ul>
+                  <p class="slide-note">Generic JEPA scheme shown; architecture and results are confidential.</p>
+                </div>
+              </article>
+
+              <article class="slide" id="project-qalpa" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-qalpa">
+                <a class="slide-media" href="media/qalpa-property-space.gif" data-zoom>
+                  <img src="media/qalpa-property-space.gif" width="640" height="640" loading="lazy" decoding="async" alt="Animation: over four active-learning rounds (plan, acquire, evaluate, augment), QALPA walks a planned corridor through a sparse region of the HOMO–LUMO gap versus MBD energy property space until the corridor is covered.">
+                  <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="sr-only">Enlarge animation</span>
+                </a>
+                <div class="slide-body">
+                  <p class="slide-meta"><span class="slide-theme t2">02 Generation</span><span class="slide-theme t3">03 Constraint</span><span>Course project · Preprint 2026</span></p>
+                  <h3 class="slide-title">QALPA — Property-guided molecular generation</h3>
+                  <p class="slide-hook">Interesting molecules sit where we have no data.</p>
+                  <p class="slide-text">An active-learning loop: an E(3)-equivariant diffusion model proposes 3D molecules, MACE or SO3LR relax and filter them, DFT with FHI-aims evaluates the survivors, and each round the generator is steered by what the physics confirmed. An interactive interface lets users navigate the molecular property landscape.</p>
+                  <ul class="tags"><li>Equivariant diffusion</li><li>Active learning</li><li>MACE · SO3LR</li><li>FHI-aims</li></ul>
+                  <div class="slide-actions">
+                    <a class="btn btn-ghost btn-sm" href="https://github.com/mikeHayah/qalpa/tree/active-learn" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+                    <a class="btn btn-ghost btn-sm" href="https://arxiv.org/abs/2609.16527" target="_blank" rel="noopener noreferrer">Preprint <span aria-hidden="true">↗</span></a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="slide" id="project-huggingligand" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-huggingligand">
+                <a class="slide-media" href="media/huggingligand.gif" data-zoom>
+                  <img src="media/huggingligand.gif" width="884" height="284" loading="lazy" decoding="async" alt="Animation: protein sequences and ligand SMILES pass through frozen ProtT5-XL and ChemBERTa encoders; the mean-pooled protein and ligand vectors are saved together per pair and versioned on the Hugging Face Hub.">
+                  <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="sr-only">Enlarge animation</span>
+                </a>
+                <div class="slide-body">
+                  <p class="slide-meta"><span class="slide-theme t1">01 Representation</span><span>Course project</span></p>
+                  <h3 class="slide-title">HuggingLigand — Protein–ligand binding affinity</h3>
+                  <p class="slide-hook">Learning the language of a molecular hug.</p>
+                  <p class="slide-text">Binding-affinity prediction from frozen foundation-model embeddings — ProtT5-XL for protein sequences, ChemBERTa for ligand SMILES — trained on curated BindingDB data.</p>
+                  <dl class="slide-points">
+                    <div><dt>Foundation models</dt><dd>Embedding pipeline on pretrained protein and ligand models</dd></div>
+                    <div><dt>Research software</dt><dd>Git, GitLab CI/CD, pytest, Poetry, Sphinx, SLURM; published on Zenodo and the Hugging Face Hub</dd></div>
+                  </dl>
+                  <ul class="tags"><li>ProtT5-XL</li><li>ChemBERTa</li><li>BindingDB</li><li>Hugging Face Hub</li></ul>
+                  <div class="slide-actions">
+                    <a class="btn btn-ghost btn-sm" href="https://github.com/mikeHayah/HuggingLigand" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="slide" id="project-notch" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-notch">
+                <a class="slide-media" href="media/notch-surrogate.gif" data-zoom>
+                  <img src="media/notch-surrogate.gif" width="884" height="284" loading="lazy" decoding="async" alt="Animation: a four-ODE Notch–Delta model in each cell sorts a tissue into sender and receiver cells that segregate by E-cadherin adhesion; a neural surrogate then replaces the ODEs, feeding updated neighbour signals back each step.">
+                  <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="sr-only">Enlarge animation</span>
+                </a>
+                <div class="slide-body">
+                  <p class="slide-meta"><span class="slide-theme t1">01 Representation</span><span class="slide-theme t3">03 Understanding</span><span>Course project</span></p>
+                  <h3 class="slide-title">Hybrid mechanistic–neural modeling of tissue morphogenesis</h3>
+                  <p class="slide-hook">Mechanism and learning in one model.</p>
+                  <p class="slide-text">Notch signaling is a well-understood ODE system, but too slow to solve in every cell of a tissue simulation. A BayesFlow neural surrogate replaces the per-cell solver in Morpheus — and the simplest network won.</p>
+                  <dl class="slide-points">
+                    <div><dt>Mechanism</dt><dd>Notch ODEs between neighbouring cells</dd></div>
+                    <div><dt>Learning</dt><dd>BayesFlow likelihood network: settings in, signals out</dd></div>
+                    <div><dt>Tissue</dt><dd>Cellular Potts model of lateral inhibition</dd></div>
+                  </dl>
+                  <ul class="tags"><li>BayesFlow</li><li>Neural surrogates</li><li>ODEs</li><li>Cellular Potts</li></ul>
+                  <div class="slide-actions">
+                    <a class="btn btn-ghost btn-sm" href="https://github.com/mikeHayah/Mechanistic-BayseFlowNN" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="slide" id="project-photoacoustics" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-photoacoustics">
+                <a class="slide-media" href="media/photoacoustics.gif" data-zoom>
+                  <img src="media/photoacoustics.gif" width="884" height="284" loading="lazy" decoding="async" alt="Animation: a multiphysics chain — Monte Carlo light transport, bioheat transfer, solid mechanics and pressure acoustics — turns laser light absorbed by arterial plaque into a pressure wave recorded at five surface detectors.">
+                  <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="sr-only">Enlarge animation</span>
+                </a>
+                <div class="slide-body">
+                  <p class="slide-meta"><span class="slide-theme t2">02 Simulation</span><span class="slide-theme t3">03 Physics</span><span>M.Sc. thesis · Cairo University</span></p>
+                  <h3 class="slide-title">Multiphysics model of photoacoustic plaque detection</h3>
+                  <p class="slide-hook">Can light-generated sound reveal what is inside tissue?</p>
+                  <p class="slide-text">A coupled Monte Carlo–finite-element framework. Starting from segmented anatomy, mesh-based Monte Carlo gives the light fluence, bioheat transfer and solid mechanics turn absorbed light into motion, and pressure acoustics carries the signal to surface detectors — here, to reveal plaque in a vessel.</p>
+                  <p class="slide-question">The question it left me with: can a cheaper, learned simulation give the same output?</p>
+                  <ul class="tags"><li>Monte Carlo</li><li>Finite elements</li><li>Multiphysics</li><li>Photoacoustics</li></ul>
+                </div>
+              </article>
+
+              <article class="slide" id="project-surgical" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-surgical">
+                <div class="slide-media is-steps" aria-hidden="true">
+                  <ol class="scene-steps">
+                    <li><b>Anatomy</b><span>geometry-driven organs</span></li>
+                    <li><b>Organ motion</b><span>non-rigid deformation</span></li>
+                    <li><b>Camera motion</b><span>intraoperative views</span></li>
+                    <li><b>Imaging</b><span>emulated conditions</span></li>
+                  </ol>
+                </div>
+                <div class="slide-body">
+                  <p class="slide-meta"><span class="slide-theme t2">02 Simulation</span><span>DKFZ / NCT · Translational Surgical Oncology</span></p>
+                  <h3 class="slide-title">Non-rigid surgical scene generation</h3>
+                  <p class="slide-hook">Synthetic surgical scenes for robotics and computer vision.</p>
+                  <p class="slide-text">Synthetic intraoperative scenes of deformable organs — geometry-driven anatomy, organ and camera motion, and emulated imaging conditions — built with mathematical modeling, computational geometry and Python automation.</p>
+                  <ul class="tags"><li>Computational geometry</li><li>Blender Geometry Nodes</li><li>Synthetic data</li></ul>
+                  <div class="slide-actions">
+                    <a class="btn btn-ghost btn-sm" href="https://github.com/mikeHayah/NCT-TSO-nonrigid-data-generation-pipeline" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="slider-controls">
+              <p class="slider-count"><span data-slide-current>01</span> / <span data-slide-total>06</span></p>
+              <div class="slider-progress" aria-hidden="true"><span></span></div>
+              <div class="slider-arrows">
+                <button type="button" data-slide-prev aria-label="Previous project">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button type="button" data-slide-next aria-label="Next project">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
           </div>
+
           <a class="more-link" href="https://github.com/mikeHayah?tab=repositories" target="_blank" rel="noopener noreferrer">All repositories on GitHub <span aria-hidden="true">→</span></a>
         </section>
 

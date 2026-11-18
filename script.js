@@ -11,6 +11,7 @@ for (const link of document.querySelectorAll('[data-email-user]')) {
 // Affiliation pills open the matching reference letter (PDF) in a modal dialog.
 const docDialog = document.getElementById('doc-dialog');
 if (docDialog && typeof docDialog.showModal === 'function') {
+  const kicker = docDialog.querySelector('.doc-dialog-kicker');
   const title = docDialog.querySelector('.doc-dialog-title');
   const body = docDialog.querySelector('.doc-dialog-body');
   const openLink = docDialog.querySelector('.doc-dialog-open');
@@ -27,6 +28,8 @@ if (docDialog && typeof docDialog.showModal === 'function') {
   for (const button of document.querySelectorAll('.affiliations [data-doc-title]')) {
     button.addEventListener('click', () => {
       const src = button.dataset.doc;
+      kicker.textContent = 'Reference letter';
+      docDialog.classList.remove('is-media');
       title.textContent = button.dataset.docTitle;
       openLink.hidden = !src;
       if (src) openLink.href = src;
@@ -57,11 +60,136 @@ if (docDialog && typeof docDialog.showModal === 'function') {
     });
   }
 
+  // Project animations open full size in the same dialog (without JS the link opens the GIF).
+  for (const link of document.querySelectorAll('[data-zoom]')) {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const source = link.querySelector('img');
+      const image = document.createElement('img');
+      image.className = 'doc-dialog-media';
+      image.src = source.currentSrc || source.src;
+      image.alt = source.alt;
+      kicker.textContent = 'Project animation';
+      title.textContent = link.closest('.slide')?.querySelector('.slide-title')?.textContent ?? '';
+      openLink.hidden = true;
+      docDialog.classList.remove('is-short');
+      docDialog.classList.add('is-media');
+      body.replaceChildren(image);
+      docDialog.showModal();
+    });
+  }
+
   docDialog.querySelector('.doc-dialog-close').addEventListener('click', () => docDialog.close());
   // A click on the backdrop lands on the <dialog> itself; clicks on its content land on children.
   docDialog.addEventListener('click', (e) => { if (e.target === docDialog) docDialog.close(); });
   // Drop the iframe on close so the PDF is unloaded.
   docDialog.addEventListener('close', () => body.replaceChildren());
+}
+
+// Projects slider. The track is a native horizontal scroll-snap container, so swipe and
+// trackpad scrolling work on their own; this adds tabs, arrows, a counter, keyboard support
+// and click-to-move on the neighbouring panels that peek in at the sides.
+const slider = document.querySelector('[data-slider]');
+if (slider) {
+  const track = slider.querySelector('.slider-track');
+  const tabList = slider.querySelector('.slider-tabs');
+  const slides = [...track.querySelectorAll('.slide')];
+  const tabs = slides.map((slide) => tabList.querySelector(`[aria-controls="${slide.id}"]`));
+  const prev = slider.querySelector('[data-slide-prev]');
+  const next = slider.querySelector('[data-slide-next]');
+  const counter = slider.querySelector('[data-slide-current]');
+  const projects = document.getElementById('projects');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const behavior = () => (reduceMotion.matches ? 'auto' : 'smooth');
+  const pad = (n) => String(n).padStart(2, '0');
+  const leftOf = (index) => slides[index].offsetLeft - slides[0].offsetLeft;
+  let current = -1;
+
+  slider.querySelector('[data-slide-total]').textContent = pad(slides.length);
+  slider.style.setProperty('--n', slides.length);
+
+  const setActive = (index) => {
+    if (index === current) return;
+    current = index;
+    slides.forEach((slide, i) => {
+      slide.inert = i !== index;
+      slide.classList.toggle('is-active', i === index);
+    });
+    tabs.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index));
+      tab.tabIndex = i === index ? 0 : -1;
+    });
+    prev.disabled = index === 0;
+    next.disabled = index === slides.length - 1;
+    counter.textContent = pad(index + 1);
+    slider.style.setProperty('--i', index);
+    // Keep the active tab visible when the tab row scrolls (phones), without moving the page.
+    const tab = tabs[index];
+    tabList.scrollTo({ left: tab.offsetLeft - (tabList.clientWidth - tab.offsetWidth) / 2, behavior: behavior() });
+  };
+
+  let settle;
+  const goTo = (index, smooth = true) => {
+    const target = Math.max(0, Math.min(slides.length - 1, index));
+    clearTimeout(settle); // a check queued by an earlier scroll would see the old position
+    track.scrollTo({ left: leftOf(target), behavior: smooth ? behavior() : 'auto' });
+    setActive(target);
+  };
+
+  // Once a swipe comes to rest on a slide, that slide becomes active. Positions between
+  // slides (a smooth scroll still under way) are ignored; snapping always ends on a slide.
+  track.addEventListener('scroll', () => {
+    clearTimeout(settle);
+    settle = setTimeout(() => {
+      const index = slides.findIndex((_, i) => Math.abs(leftOf(i) - track.scrollLeft) < 6);
+      if (index >= 0) setActive(index);
+    }, 90);
+  }, { passive: true });
+
+  prev.addEventListener('click', () => goTo(current - 1));
+  next.addEventListener('click', () => goTo(current + 1));
+
+  tabList.addEventListener('keydown', (e) => {
+    const keys = { ArrowLeft: current - 1, ArrowRight: current + 1, Home: 0, End: slides.length - 1 };
+    if (!(e.key in keys)) return;
+    e.preventDefault();
+    goTo(keys[e.key]);
+    tabs[current].focus({ preventScroll: true });
+  });
+
+  // Tabs and the theme links in About point at #project-…; show that slide instead of jumping.
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#project-"]');
+    const index = link ? slides.findIndex((slide) => `#${slide.id}` === link.hash) : -1;
+    if (index < 0) return;
+    e.preventDefault();
+    const inSlider = slider.contains(link);
+    goTo(index, inSlider);
+    if (!inSlider) projects.scrollIntoView({ behavior: behavior() });
+  });
+
+  // Images in off-screen slides never intersect the viewport, so native lazy loading would
+  // only fetch them once shown. Start loading them all when the slider comes near.
+  new IntersectionObserver((entries, observer) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    slider.querySelectorAll('img[loading="lazy"]').forEach((img) => { img.loading = 'eager'; });
+    observer.disconnect();
+  }, { rootMargin: '400px 0px' }).observe(slider);
+
+  // Inactive panels are inert, so a click on a peeking neighbour lands on the track itself.
+  track.addEventListener('click', (e) => {
+    if (e.target !== track) return;
+    const { left, right } = slides[current].getBoundingClientRect();
+    if (e.clientX < left) goTo(current - 1);
+    else if (e.clientX > right) goTo(current + 1);
+  });
+
+  // A window resize (rotation, zoom) can shift or reset the track's scroll offset; put the
+  // current slide back before the scroll handler mistakes that for a swipe.
+  addEventListener('resize', () => requestAnimationFrame(() => track.scrollTo({ left: leftOf(current) })));
+
+  slider.classList.add('is-ready');
+  goTo(Math.max(0, slides.findIndex((slide) => `#${slide.id}` === location.hash)), false);
 }
 
 const tocLinks = [...document.querySelectorAll('.toc a')];
