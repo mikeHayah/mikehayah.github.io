@@ -87,8 +87,8 @@ if (docDialog && typeof docDialog.showModal === 'function') {
 }
 
 // Projects slider. The track is a native horizontal scroll-snap container, so swipe and
-// trackpad scrolling work on their own; this adds tabs, arrows, a counter, keyboard support
-// and click-to-move on the neighbouring panels that peek in at the sides.
+// trackpad scrolling work on their own; this adds tabs, side arrows, keyboard support and
+// click-to-move on the neighbouring panels that peek in at the sides.
 const slider = document.querySelector('[data-slider]');
 if (slider) {
   const track = slider.querySelector('.slider-track');
@@ -97,16 +97,11 @@ if (slider) {
   const tabs = slides.map((slide) => tabList.querySelector(`[aria-controls="${slide.id}"]`));
   const prev = slider.querySelector('[data-slide-prev]');
   const next = slider.querySelector('[data-slide-next]');
-  const counter = slider.querySelector('[data-slide-current]');
   const projects = document.getElementById('projects');
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const behavior = () => (reduceMotion.matches ? 'auto' : 'smooth');
-  const pad = (n) => String(n).padStart(2, '0');
   const leftOf = (index) => slides[index].offsetLeft - slides[0].offsetLeft;
   let current = -1;
-
-  slider.querySelector('[data-slide-total]').textContent = pad(slides.length);
-  slider.style.setProperty('--n', slides.length);
 
   const setActive = (index) => {
     if (index === current) return;
@@ -121,8 +116,6 @@ if (slider) {
     });
     prev.disabled = index === 0;
     next.disabled = index === slides.length - 1;
-    counter.textContent = pad(index + 1);
-    slider.style.setProperty('--i', index);
     // Keep the active tab visible when the tab row scrolls (phones), without moving the page.
     const tab = tabs[index];
     tabList.scrollTo({ left: tab.offsetLeft - (tabList.clientWidth - tab.offsetWidth) / 2, behavior: behavior() });
