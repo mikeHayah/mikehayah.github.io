@@ -423,7 +423,7 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 /* The active panel sits in the middle; --peek of the track's padding on each side shows the
    neighbouring panels. Panels stretch to the tallest one, so the size never changes. */
 .slider-track {
-  --peek: 76px;
+  --peek: 96px;
   --gap: 14px;
   position: relative;
   display: flex;
@@ -771,7 +771,7 @@ a.slide-media:focus-visible { outline-offset: -4px; }
   .entry-meta { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
   .split { grid-template-columns: 1fr; gap: 36px; }
   .contact-row { flex-wrap: wrap; }
-  .slider-track { --peek: 46px; --gap: 12px; }
+  .slider-track { --peek: 52px; --gap: 12px; }
   .slider-tabs { margin: -5px -24px 7px; padding: 5px 24px; }
   .slider-arrow { width: 34px; height: 34px; }
   .slider-arrow.is-prev { left: -22px; }
