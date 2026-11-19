@@ -62,16 +62,17 @@ if (docDialog && typeof docDialog.showModal === 'function') {
   }
 
   // Project animations open full size in the same dialog (without JS the link opens the GIF).
+  // The link's href is the animation, so a still preview (the paper figure) opens the GIF.
   for (const link of document.querySelectorAll('[data-zoom]')) {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const source = link.querySelector('img');
       const image = document.createElement('img');
       image.className = 'doc-dialog-media';
-      image.src = source.currentSrc || source.src;
-      image.alt = source.alt;
+      image.src = link.getAttribute('href') || source.currentSrc || source.src;
+      image.alt = link.dataset.zoomAlt || source.alt;
       kicker.textContent = 'Project animation';
-      title.textContent = link.closest('.slide')?.querySelector('.slide-title')?.textContent ?? '';
+      title.textContent = link.dataset.zoomTitle || link.closest('.slide')?.querySelector('.slide-title')?.textContent || '';
       openLink.hidden = true;
       docDialog.classList.remove('is-short');
       docDialog.classList.add('is-media');
@@ -80,11 +81,42 @@ if (docDialog && typeof docDialog.showModal === 'function') {
     });
   }
 
+  // "Cite" copies the BibTeX entry kept in a <template>; where the clipboard is unavailable
+  // (e.g. a page opened from disk) the entry is shown in the dialog to copy by hand.
+  for (const button of document.querySelectorAll('[data-cite]')) {
+    const entry = document.getElementById(button.dataset.cite)?.content.textContent.trim().replace(/\r\n/g, '\n');
+    const label = button.querySelector('.cite-label');
+    if (!entry || !label) continue;
+    let reset;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(entry);
+        label.textContent = 'BibTeX copied';
+        clearTimeout(reset);
+        reset = setTimeout(() => { label.textContent = 'Cite'; }, 2000);
+      } catch {
+        const code = document.createElement('pre');
+        code.className = 'doc-dialog-code';
+        code.textContent = entry;
+        kicker.textContent = 'Cite';
+        title.textContent = 'BibTeX';
+        openLink.hidden = true;
+        docDialog.classList.remove('is-short', 'is-media');
+        docDialog.classList.add('is-code');
+        body.replaceChildren(code);
+        docDialog.showModal();
+      }
+    });
+  }
+
   docDialog.querySelector('.doc-dialog-close').addEventListener('click', () => docDialog.close());
   // A click on the backdrop lands on the <dialog> itself; clicks on its content land on children.
   docDialog.addEventListener('click', (e) => { if (e.target === docDialog) docDialog.close(); });
-  // Drop the iframe on close so the PDF is unloaded.
-  docDialog.addEventListener('close', () => body.replaceChildren());
+  // Drop the iframe on close so the PDF is unloaded, and reset the layout variants.
+  docDialog.addEventListener('close', () => {
+    body.replaceChildren();
+    docDialog.classList.remove('is-media', 'is-code');
+  });
 }
 
 // Projects slider. The track is a native horizontal scroll-snap container, so swipe and

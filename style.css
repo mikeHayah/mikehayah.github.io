@@ -324,6 +324,8 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 .doc-dialog-frame { display: block; width: 100%; height: 100%; border: 0; }
 /* Full-size project animation; the GIFs are drawn on white. */
 .doc-dialog.is-media { width: min(960px, calc(100vw - 32px)); height: auto; }
+.doc-dialog.is-code { width: min(760px, calc(100vw - 32px)); height: auto; }
+.doc-dialog-code { margin: 0; padding: 18px 22px 22px; overflow: auto; color: var(--text); font: 400 12.5px/1.6 var(--mono); white-space: pre; }
 .doc-dialog.is-media .doc-dialog-body { display: grid; place-items: center; padding: 16px; overflow: auto; background: #fff; }
 .doc-dialog-media { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(92vh - 140px); max-height: calc(92dvh - 140px); }
 .doc-dialog-message { padding: 22px 24px 26px; color: var(--muted); font-size: 15px; }
@@ -349,6 +351,8 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 .paper { padding: 36px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); }
 .paper-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font: 500 12px/1 var(--mono); letter-spacing: .06em; }
 .paper-meta span:first-child { color: var(--warm); text-transform: uppercase; letter-spacing: .12em; }
+.paper-meta a { border-bottom: 1px solid var(--line); transition: color .2s ease, border-color .2s ease; }
+.paper-meta a:hover { border-color: currentColor; color: var(--accent); }
 .paper-title { margin-top: 18px; color: var(--ink); font: 400 clamp(1.6rem, 2.3vw, 2rem)/1.2 var(--display); letter-spacing: -.005em; }
 .paper-title a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s ease; }
 .paper-title a:hover { background-size: 100% 1px; }
@@ -356,6 +360,25 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 .paper-authors strong { color: var(--ink); font-weight: 600; }
 .paper-summary { margin-top: 14px; }
 .paper + .paper {margin-top: 1rem; }
+.paper-role { margin-top: 12px; font-size: 15px; }
+.paper-role span { margin-right: 10px; color: var(--muted); font: 500 11px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.paper-links { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 14px; }
+
+/* Featured paper: text and a graphical abstract side by side when the column is wide enough;
+   the figure opens the full animation. */
+#publication { container: publication / inline-size; }
+.paper.is-featured { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 32px; }
+.paper-figure { max-width: 340px; margin-top: 24px; }
+.paper-figure a { position: relative; display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fdfcfe; cursor: zoom-in; }
+.paper-figure a:focus-visible { outline-offset: 3px; }
+.paper-figure img { display: block; width: 100%; height: auto; }
+.paper-figure a:hover .slide-zoom, .paper-figure a:focus-visible .slide-zoom { opacity: 1; transform: none; }
+.paper-figure figcaption { margin-top: 8px; color: var(--muted); font: 400 11.5px/1.5 var(--mono); }
+@container publication (min-width: 680px) {
+  .paper.is-featured { grid-template-columns: minmax(0, 1fr) 232px; }
+  .paper.is-featured .paper-figure { grid-column: 2; grid-row: 1; max-width: none; margin-top: 4px; }
+  .paper.is-featured > :not(.paper-main, .paper-figure) { grid-column: 1 / -1; }
+}
 
 .pipeline { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 32px; }
 .pipeline li { position: relative; display: flex; flex-direction: column; gap: 2px; padding: 22px 14px 0 0; border-top: 1px solid var(--line); }
@@ -364,10 +387,26 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 .pipeline .step { color: var(--muted); font: 500 11px/1.6 var(--mono); }
 .pipeline b { color: var(--ink); font-weight: 600; }
 .pipeline span:last-child { color: var(--muted); font-size: 13px; line-height: 1.5; }
-.pipeline-note { margin-top: 18px; color: var(--accent); font: 400 12px/1.5 var(--mono); }
+/* Return path under the pipeline: step 04 feeds back into step 01. The U spans the 75%
+   between the first and last step markers (centred 5.5px into their columns). */
+.pipeline-loop { position: relative; margin-top: 14px; padding: 24px 0 0 22px; color: var(--accent); font: 400 12px/1.5 var(--mono); }
+.pipeline-loop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5px;
+  width: 75%;
+  height: 14px;
+  border: 1.5px dashed var(--accent);
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+}
+.pipeline-loop::after { content: ''; position: absolute; top: -7px; left: 1px; border: 5px solid transparent; border-top: 0; border-bottom: 7px solid var(--accent); }
 
 .paper-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; transition: transform .2s ease, border-color .2s ease; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 500; line-height: inherit; transition: transform .2s ease, border-color .2s ease; }
+button.btn { background: none; cursor: pointer; }
+.btn svg { width: 15px; height: 15px; }
 .btn:hover { transform: translateY(-1px); }
 .btn-primary { background: var(--ink); color: var(--bg); }
 .btn-primary:hover { background: var(--accent); color: #fff; }
@@ -762,6 +801,10 @@ a.slide-media:focus-visible { outline-offset: -4px; }
   body { font-size: 15.5px; }
   .paper { padding: 24px 20px; border-radius: 16px; }
   .pipeline { grid-template-columns: 1fr 1fr; row-gap: 26px; }
+  /* Two-by-two steps: drop the U-shaped return path, keep a loop symbol. */
+  .pipeline-loop { padding: 0; }
+  .pipeline-loop::before { content: '↻ '; position: static; width: auto; height: auto; border: 0; }
+  .pipeline-loop::after { display: none; }
   .entry { grid-template-columns: 1fr; gap: 4px; }
   /* One column: the rail moves to the left edge and the entry is indented past it. */
   .timeline { --rail: 22px; --dot-top: 24px; }

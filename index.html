@@ -3,31 +3,35 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Michael Hanna — machine learning researcher working on generative and self-supervised models for molecular design.">
+    <meta name="description" content="Michael Hanna — machine-learning researcher building models that represent biological systems, learn their dynamics and generate molecules where data are scarce, grounded in physics and mechanism.">
     <meta name="color-scheme" content="light dark">
     <title>Michael Hanna — Machine Learning for Biomedicine</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2315171c'/%3E%3Ctext x='32' y='43' font-size='30' text-anchor='middle' fill='%23f8f7f3' font-family='Georgia,serif'%3EMH%3C/text%3E%3C/svg%3E">
     <link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="canonical" href="https://mikehayah.github.io/">
+    <link rel="canonical" href="https://mikehayah.github.io/Page/">
     <meta property="og:type" content="profile">
-    <meta property="og:url" content="https://mikehayah.github.io/">
-    <meta property="og:title" content="Michael Hanna — Machine Learning for Molecular Design">
-    <meta property="og:description" content="Generative and self-supervised models for molecular design, grounded in geometry, chemistry and physics.">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:url" content="https://mikehayah.github.io/Page/">
+    <meta property="og:title" content="Michael Hanna — Machine Learning for Biomedicine">
+    <meta property="og:description" content="Machine-learning models that represent biological systems, learn their dynamics and generate molecules where data are scarce — grounded in physics and mechanism.">
+    <meta property="og:image" content="https://mikehayah.github.io/Page/media/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Michael Hanna — Machine learning for Biomedicine, with the model–simulation–physics triangle.">
+    <meta name="twitter:card" content="summary_large_image">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Michael Hanna",
-        "url": "https://mikehayah.github.io/",
+        "url": "https://mikehayah.github.io/Page/",
         "jobTitle": "Machine Learning Researcher",
         "alumniOf": [
           { "@type": "CollegeOrUniversity", "name": "Technische Universität Dresden" },
           { "@type": "CollegeOrUniversity", "name": "Cairo University" }
         ],
         "knowsAbout": ["Machine learning", "Generative models", "Diffusion models", "Self-supervised learning", "Geometric deep learning", "Molecular design", "Computational chemistry"],
-        "sameAs": ["https://github.com/mikeHayah", "https://orcid.org/0009-0004-3854-4828"]
+        "sameAs": ["https://github.com/mikeHayah", "https://orcid.org/0009-0004-3854-4828", "https://www.linkedin.com/in/michael-g-hanna"]
       }
     </script>
     <link rel="stylesheet" href="style.css">
@@ -54,7 +58,7 @@
           <nav class="toc" aria-label="Sections">
             <ul>
               <li><a href="#about"><span class="toc-line"></span>About</a></li>
-              <li><a href="#publication"><span class="toc-line"></span>Publication</a></li>
+              <li><a href="#publication"><span class="toc-line"></span>Publications</a></li>
               <li><a href="#projects"><span class="toc-line"></span>Projects</a></li>
               <li><a href="#experience"><span class="toc-line"></span>Experience</a></li>
               <li><a href="#education"><span class="toc-line"></span>Education</a></li>
@@ -76,6 +80,11 @@
             <li>
               <a href="https://orcid.org/0009-0004-3854-4828" target="_blank" rel="noopener noreferrer" aria-label="ORCID" title="ORCID">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.6"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="600" font-family="Inter, sans-serif" fill="currentColor">iD</text></svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/michael-g-hanna" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="2.75" width="18.5" height="18.5" rx="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="currentColor" d="M7.3 10.1h2.1V17H7.3zM8.35 6.7a1.22 1.22 0 1 1 0 2.44 1.22 1.22 0 0 1 0-2.44zM10.9 10.1h2v.95a2.3 2.3 0 0 1 2.07-1.12c2.2 0 2.6 1.44 2.6 3.32V17h-2.1v-3.37c0-.8-.02-1.84-1.13-1.84-1.13 0-1.3.88-1.3 1.78V17h-2.14z"/></svg>
               </a>
             </li>
             <li>
@@ -205,33 +214,60 @@
         </section>
 
         <section id="publication" aria-labelledby="publication-title">
-          <h2 class="section-label" id="publication-title"><span>02</span>Publication</h2>
+          <h2 class="section-label" id="publication-title"><span>02</span>Publications</h2>
 
-          <article class="paper">
-            <p class="paper-meta"><span>Preprint</span><span>arXiv:2609.16527</span><span>2026</span></p>
-            <h3 class="paper-title"><a href="https://arxiv.org/abs/2609.16527" target="_blank" rel="noopener noreferrer">QALPA: Property-guided diffusion modeling for efficient exploration of chemical spaces of flexible molecules</a></h3>
-            <p class="paper-authors"><strong>M. Hanna</strong>, J. Cremer, et al.</p>
-            <p class="paper-summary">An active-learning framework that couples E(3)-equivariant diffusion models with quantum-mechanical evaluation to iteratively explore and augment molecular property spaces.</p>
+          <article class="paper is-featured">
+            <div class="paper-main">
+              <p class="paper-meta"><span>Preprint</span><a href="https://arxiv.org/abs/2609.16527" target="_blank" rel="noopener noreferrer">arXiv:2609.16527 <span aria-hidden="true">↗</span></a><span>physics.chem-ph</span><span>2026</span></p>
+              <h3 class="paper-title"><a href="https://arxiv.org/abs/2609.16527" target="_blank" rel="noopener noreferrer">QALPA: Property-guided diffusion modeling for efficient exploration of chemical spaces of flexible molecules</a></h3>
+              <p class="paper-authors"><strong>M. Hanna</strong>, J. Cremer, Z. Erarslan, L. Medrano Sandonas</p>
+              <p class="paper-summary">An active-learning framework that couples E(3)-equivariant diffusion models with quantum-mechanical evaluation to iteratively explore and augment molecular property spaces.</p>
+            </div>
 
-            <ol class="pipeline" aria-label="QALPA pipeline">
+            <figure class="paper-figure">
+              <a href="media/qalpa-property-space.gif" data-zoom data-zoom-title="QALPA — active-learning walk through property space" data-zoom-alt="Animation: over four active-learning rounds (plan, acquire, evaluate, augment), QALPA walks a planned corridor through a sparsely sampled region of the HOMO–LUMO gap versus MBD energy plane until the corridor is covered.">
+                <img src="media/qalpa-property-space-final.png" width="640" height="640" loading="lazy" decoding="async" alt="Final active-learning round in the HOMO–LUMO gap versus MBD energy plane: the planned corridor through a sparsely sampled region is fully covered after four rounds.">
+                <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="sr-only">Play the animation</span>
+              </a>
+              <figcaption>After four rounds the sparse target corridor is covered. Illustrative.</figcaption>
+            </figure>
+
+            <ol class="pipeline" aria-label="QALPA active-learning loop">
               <li><span class="step">01</span><b>Generate</b><span>E(3)-equivariant diffusion</span></li>
               <li><span class="step">02</span><b>Relax</b><span>Filtering · MACE / SO3LR</span></li>
               <li><span class="step">03</span><b>Evaluate</b><span>DFT with FHI-aims</span></li>
               <li><span class="step">04</span><b>Augment</b><span>Steer toward target properties</span></li>
             </ol>
-            <p class="pipeline-note">active-learning</p>
+            <p class="pipeline-loop">Active learning: each round, the generator is steered by what the physics confirmed.</p>
 
             <div class="paper-actions">
               <a class="btn btn-primary" href="https://arxiv.org/abs/2609.16527" target="_blank" rel="noopener noreferrer">Read preprint <span aria-hidden="true">↗</span></a>
               <a class="btn btn-ghost" href="https://github.com/mikeHayah/qalpa/tree/active-learn" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+              <button type="button" class="btn btn-ghost" data-cite="cite-qalpa">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10.5 3.5v-.5a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+                <span class="cite-label" aria-live="polite">Cite</span>
+              </button>
             </div>
+            <template id="cite-qalpa">@article{hanna2026qalpa,
+  title         = {{QALPA}: Property-guided diffusion modeling for efficient exploration of chemical spaces of flexible molecules},
+  author        = {Hanna, Michael and Cremer, Julian and Erarslan, Zekiye and Medrano Sandonas, Leonardo},
+  journal       = {arXiv preprint arXiv:2609.16527},
+  year          = {2026},
+  eprint        = {2609.16527},
+  archivePrefix = {arXiv},
+  primaryClass  = {physics.chem-ph},
+  url           = {https://arxiv.org/abs/2609.16527}
+}</template>
           </article>
 
           <article class="paper">
-            <p class="paper-meta"><span>In preparation</span></p>
+            <p class="paper-meta"><span>In preparation</span><span>MPI-CBG · Zerial Lab</span></p>
             <h3 class="paper-title">Manuscript in final preparation</h3>
             <p class="paper-authors">F. Caradonna, R. Grover, M.J. Bovyn, J.S. Schuhmacher, <strong>M. Hanna</strong>, Y. Kalaidzidis, S. Diez, M. Zerial</p>
-            <p class="paper-summary">Max Plank Institute for Molecular Cell Biology and Genetics. Details withheld due to confidentiality.</p>
+            <p class="paper-summary">Max Planck Institute of Molecular Cell Biology and Genetics. Title and results are withheld until publication.</p>
+            <p class="paper-role"><span>My contribution</span>Image-based deep learning and statistical analysis.</p>
+            <p class="paper-links"><a class="entry-link" href="#experience">Research at MPI-CBG <span aria-hidden="true">→</span></a></p>
           </article>
         </section>
 
