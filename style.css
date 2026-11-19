@@ -68,9 +68,9 @@ ul, ol { padding: 0; list-style: none; }
 /* Layout */
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: 88px;
-  max-width: 1220px;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: 72px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 48px;
 }
@@ -194,7 +194,7 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
   color: var(--ink);
   font: 400 clamp(1.2rem, 1.8vw, 1.5rem)/1.35 var(--display);
   letter-spacing: -.005em;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 .about-lead em, .gradient-text {
   background: var(--grad);
@@ -212,7 +212,7 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
 /* Triangle: the outer one is science (model, simulation, physics); the inner one holds the
    machine-learning conjugate of each corner. SVG units scale with the figure width. */
 .triad { margin: 34px 0 8px; }
-.triad svg { display: block; width: 100%; max-width: 480px; height: auto; margin: 0 auto; overflow: visible; }
+.triad svg { display: block; width: 100%; max-width: 540px; height: auto; margin: 0 auto; overflow: visible; }
 .triad-frame { fill: none; stroke: var(--muted); stroke-opacity: .5; stroke-width: 1.25; stroke-linejoin: round; }
 .triad-loop { fill: var(--accent-soft); stroke: url(#triad-grad); stroke-width: 1.75; stroke-linejoin: round; }
 .triad-stop-a { stop-color: var(--accent); }
@@ -237,7 +237,7 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
 #about:has(.themes > .t1:hover) .triad-v.t1 .triad-ai,
 #about:has(.themes > .t2:hover) .triad-v.t2 .triad-ai,
 #about:has(.themes > .t3:hover) .triad-v.t3 .triad-ai { fill: var(--v); }
-.triad-caption { display: grid; gap: 4px; max-width: 480px; margin: 16px auto 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.triad-caption { display: grid; gap: 4px; max-width: 540px; margin: 16px auto 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
 .triad-key { display: inline-block; width: 9px; height: 9px; margin-right: 9px; border-radius: 50%; vertical-align: 1px; }
 .triad-key.is-sci { border: 1.5px solid var(--muted); }
 .triad-key.is-ai { background: var(--grad); }
@@ -550,6 +550,12 @@ a.slide-media:focus-visible { outline-offset: -4px; }
 .slider-arrow:disabled { opacity: 0; pointer-events: none; }
 .slider:not(.is-ready) .slider-arrow { display: none; }
 .slider-arrow svg { width: 20px; height: 20px; }
+
+/* In a wide column the panels get wider, so a flatter frame keeps their height (and the
+   whole slider) within one screen. */
+@container (min-width: 700px) {
+  .slide-media { aspect-ratio: 2.6 / 1; }
+}
 
 @container (max-width: 540px) {
   .slide-media.is-steps { padding: 12px; }
