@@ -423,7 +423,7 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 /* The active panel sits in the middle; --peek of the track's padding on each side shows the
    neighbouring panels. Panels stretch to the tallest one, so the size never changes. */
 .slider-track {
-  --peek: 56px;
+  --peek: 76px;
   --gap: 14px;
   position: relative;
   display: flex;
@@ -583,9 +583,14 @@ a.slide-media:focus-visible { outline-offset: -4px; }
 
 /* Timeline (Experience, Education): a rail through the gap between the date column and the
    text, with one dot per entry in the colour of the triangle corner it feeds (.t1–.t3).
-   --rail = card padding + date column + half the column gap; --dot-top aligns the dot with
-   the first line of the title. */
-.timeline { --rail: 194px; --dot-top: 30px; }
+   --rail = card padding + date column + half the column gap; --dot-top centres the dot on
+   the first line of the heading (--first-line tall, starting --pad-top into the card). */
+.timeline {
+  --rail: 194px;
+  --pad-top: 24px;
+  --first-line: calc(1.05rem * 1.4);
+  --dot-top: calc(var(--pad-top) + var(--first-line) / 2 - 6px);
+}
 .timeline .entry { column-gap: 40px; }
 .timeline .entry::before {
   content: '';
@@ -620,6 +625,29 @@ a.slide-media:focus-visible { outline-offset: -4px; }
 
 .entry-meta { display: flex; flex-direction: column; gap: 6px; }
 .card .entry-theme { color: var(--v, var(--muted)); font: 500 10.5px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+
+/* Experience leads with the organisation: its name is the entry's headline (display serif,
+   like paper and project titles), the role and unit follow. */
+.timeline.is-orgs { --org-size: clamp(1.5rem, 2vw, 1.75rem); --first-line: calc(var(--org-size) * 1.15); }
+.timeline.is-orgs .entry-date { padding-top: calc(var(--first-line) / 2 - .8em); }
+.entry-company {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  color: var(--ink);
+  font: 400 var(--org-size, 1.6rem)/1.15 var(--display);
+  letter-spacing: -.005em;
+}
+.entry-abbr {
+  padding: 3px 8px 2px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--muted);
+  font: 500 11px/1.3 var(--mono);
+  letter-spacing: .08em;
+}
+.card .entry-role { margin-top: 6px; color: var(--ink); font-size: 15.5px; font-weight: 600; line-height: 1.45; }
 
 /* Achievements as badges. */
 .card .entry-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
@@ -727,7 +755,7 @@ a.slide-media:focus-visible { outline-offset: -4px; }
     backdrop-filter: blur(10px);
   }
   .card { margin: 0 -16px; padding: 20px 16px; }
-  .timeline { --rail: 186px; --dot-top: 26px; }
+  .timeline { --rail: 186px; --pad-top: 20px; }
 }
 
 @media (max-width: 620px) {
@@ -738,10 +766,12 @@ a.slide-media:focus-visible { outline-offset: -4px; }
   /* One column: the rail moves to the left edge and the entry is indented past it. */
   .timeline { --rail: 22px; --dot-top: 24px; }
   .timeline .entry { padding-left: 44px; }
+  .timeline.is-orgs .entry-date { padding-top: 3px; }
+  .card .entry-company + .entry-role { margin-top: 4px; }
   .entry-meta { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
   .split { grid-template-columns: 1fr; gap: 36px; }
   .contact-row { flex-wrap: wrap; }
-  .slider-track { --peek: 36px; --gap: 12px; }
+  .slider-track { --peek: 46px; --gap: 12px; }
   .slider-tabs { margin: -5px -24px 7px; padding: 5px 24px; }
   .slider-arrow { width: 34px; height: 34px; }
   .slider-arrow.is-prev { left: -22px; }
