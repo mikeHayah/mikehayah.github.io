@@ -43,7 +43,9 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* Every style in use has a real font file (Inter and JetBrains Mono are variable, Instrument
+   Serif ships regular and italic), so never let the browser fake bold or italic. */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; font-synthesis: none; }
 body {
   margin: 0;
   background:
@@ -61,6 +63,10 @@ a { color: inherit; text-decoration: none; }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
+
+/* Typesetting: no single-word last lines in running text, evenly balanced display headings. */
+p, li, dd, figcaption { text-wrap: pretty; }
+.paper-title, .slide-title, .slide-hook, .themes .theme-tagline, .doc-dialog-title, .footer p:first-child { text-wrap: balance; }
 
 .skip-link { position: absolute; left: 16px; top: -48px; z-index: 20; padding: 8px 14px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 14px; }
 .skip-link:focus { top: 16px; }
@@ -803,7 +809,7 @@ a.slide-media:focus-visible { outline-offset: -4px; }
   .pipeline { grid-template-columns: 1fr 1fr; row-gap: 26px; }
   /* Two-by-two steps: drop the U-shaped return path, keep a loop symbol. */
   .pipeline-loop { padding: 0; }
-  .pipeline-loop::before { content: '↻ '; position: static; width: auto; height: auto; border: 0; }
+  .pipeline-loop::before { content: '↻ '; position: static; width: auto; height: auto; border: 0; font-family: var(--sans); }
   .pipeline-loop::after { display: none; }
   .entry { grid-template-columns: 1fr; gap: 4px; }
   /* One column: the rail moves to the left edge and the entry is indented past it. */
@@ -830,3 +836,9 @@ a.slide-media:focus-visible { outline-offset: -4px; }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
   .triad-flow { display: none; }
 }
+
+/* All-caps labels: case-sensitive forms lift hyphens, dashes and brackets to cap height.
+   Kept last: the `font` shorthand used by these labels resets font-feature-settings. */
+.kicker, .toc a, .section-label, .theme-sci, .affiliations-label, .doc-dialog-kicker,
+.paper-meta span:first-child, .paper-role span, .slide-theme, .slide-points dt, .card .entry-date,
+.card .entry-theme, .entry-links-label, .mini-title, .legal-back { font-feature-settings: "case"; }
