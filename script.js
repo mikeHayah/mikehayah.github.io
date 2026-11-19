@@ -25,7 +25,8 @@ if (docDialog && typeof docDialog.showModal === 'function') {
     return p;
   };
 
-  for (const button of document.querySelectorAll('.affiliations [data-doc-title]')) {
+  // Header pills and the "Reference letter" links in Experience share this dialog.
+  for (const button of document.querySelectorAll('[data-doc-title]')) {
     button.addEventListener('click', () => {
       const src = button.dataset.doc;
       kicker.textContent = 'Reference letter';

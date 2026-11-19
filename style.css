@@ -581,6 +581,86 @@ a.slide-media:focus-visible { outline-offset: -4px; }
 .bullets li + li { margin-top: 6px; }
 .bullets li::before { content: ''; position: absolute; top: .8em; left: 2px; width: 6px; height: 1px; background: var(--muted); }
 
+/* Timeline (Experience, Education): a rail through the gap between the date column and the
+   text, with one dot per entry in the colour of the triangle corner it feeds (.t1–.t3).
+   --rail = card padding + date column + half the column gap; --dot-top aligns the dot with
+   the first line of the title. */
+.timeline { --rail: 194px; --dot-top: 30px; }
+.timeline .entry { column-gap: 40px; }
+.timeline .entry::before {
+  content: '';
+  position: absolute;
+  top: var(--dot-top);
+  left: calc(var(--rail) - 6px);
+  z-index: 1;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--v, var(--muted));
+  border-radius: 50%;
+  background: var(--bg);
+  transition: background-color .2s ease, transform .2s ease;
+}
+.timeline .entry:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--dot-top) + 6px);
+  left: calc(var(--rail) - .5px);
+  width: 1px;
+  height: calc(100% + 6px);
+  background: linear-gradient(var(--v, var(--line)), var(--line) 60%);
+}
+.timeline .entry:hover::before { background: var(--v, var(--muted)); transform: scale(1.2); }
+.timeline .entry.is-current::before { border-color: var(--ink); background: var(--ink); animation: now-pulse 2.4s ease-in-out infinite; }
+@keyframes now-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 25%, transparent); }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--ink) 0%, transparent); }
+}
+/* The rail gives the structure, so timeline entries skip the hover card. */
+.timeline .card:hover { border-color: transparent; background: none; box-shadow: none; }
+
+.entry-meta { display: flex; flex-direction: column; gap: 6px; }
+.card .entry-theme { color: var(--v, var(--muted)); font: 500 10.5px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+
+/* Achievements as badges. */
+.card .entry-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border: 1px solid color-mix(in srgb, var(--warm) 45%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--warm) 9%, transparent);
+  color: color-mix(in srgb, var(--warm) 80%, var(--ink));
+  font: 600 12px/1.5 var(--sans);
+}
+
+/* Links from an entry to its reference letter, project or publication. */
+.card .entry-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; margin-top: 14px; }
+.entry-links-label { color: var(--muted); font: 500 10.5px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.entry-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: 500 12px/1.4 var(--mono);
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: color .2s ease;
+}
+.entry-link:hover { color: var(--accent); }
+.entry-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.entry-link.is-doc::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.75 1.75h5.5l3 3v9.5h-8.5z'/%3E%3Cpath d='M9 1.75V5h3.25M6 8.5h4M6 11.25h4'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.75 1.75h5.5l3 3v9.5h-8.5z'/%3E%3Cpath d='M9 1.75V5h3.25M6 8.5h4M6 11.25h4'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
 .mini-title { margin-bottom: 18px; color: var(--ink); font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
 .plain-list li { display: flex; flex-direction: column; padding: 10px 0; border-bottom: 1px solid var(--line); }
@@ -647,6 +727,7 @@ a.slide-media:focus-visible { outline-offset: -4px; }
     backdrop-filter: blur(10px);
   }
   .card { margin: 0 -16px; padding: 20px 16px; }
+  .timeline { --rail: 186px; --dot-top: 26px; }
 }
 
 @media (max-width: 620px) {
@@ -654,6 +735,10 @@ a.slide-media:focus-visible { outline-offset: -4px; }
   .paper { padding: 24px 20px; border-radius: 16px; }
   .pipeline { grid-template-columns: 1fr 1fr; row-gap: 26px; }
   .entry { grid-template-columns: 1fr; gap: 4px; }
+  /* One column: the rail moves to the left edge and the entry is indented past it. */
+  .timeline { --rail: 22px; --dot-top: 24px; }
+  .timeline .entry { padding-left: 44px; }
+  .entry-meta { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
   .split { grid-template-columns: 1fr; gap: 36px; }
   .contact-row { flex-wrap: wrap; }
   .slider-track { --peek: 36px; --gap: 12px; }
