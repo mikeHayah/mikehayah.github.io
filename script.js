@@ -1,17 +1,17 @@
-// Dark by default; the toggle switches to light and remembers the choice.
+// Light by default; the toggle switches to dark and remembers the choice.
 const themeToggle = document.querySelector('.theme-toggle');
 if (themeToggle) {
   const root = document.documentElement;
   const sync = () => {
-    const label = root.dataset.theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+    const label = root.dataset.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
     themeToggle.setAttribute('aria-label', label);
     themeToggle.title = label;
   };
   sync();
   themeToggle.addEventListener('click', () => {
-    const light = root.dataset.theme !== 'light';
-    if (light) root.dataset.theme = 'light'; else delete root.dataset.theme;
-    try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
+    const dark = root.dataset.theme !== 'dark';
+    if (dark) root.dataset.theme = 'dark'; else delete root.dataset.theme;
+    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
     sync();
     document.dispatchEvent(new Event('themechange'));
   });

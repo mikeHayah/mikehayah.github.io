@@ -3,29 +3,8 @@
 @font-face { font-family: 'Instrument Serif'; src: url('fonts/instrument-serif.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Instrument Serif'; src: url('fonts/instrument-serif-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
 
-/* Dark is the default; the toggle in the corner switches to the light palette below. */
+/* Light is the default; the toggle in the corner switches to the dark palette below. */
 :root {
-  color-scheme: dark;
-  --bg: #0b0d12;
-  --surface: #12151c;
-  --ink: #f3f4f6;
-  --text: #c4c9d2;
-  --muted: #8b93a1;
-  --line: #232834;
-  --accent: #a5b4fc;
-  --accent-2: #5eead4;
-  --accent-soft: rgb(165 180 252 / 10%);
-  --warm: #fdba74;
-  --grad: linear-gradient(110deg, #a5b4fc 0%, #5eead4 100%);
-  --tint-1: rgb(165 180 252 / 7%);
-  --tint-2: rgb(94 234 212 / 5%);
-  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 16px 40px -18px rgb(0 0 0 / 70%);
-  --display: 'Instrument Serif', Georgia, serif;
-  --sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, monospace;
-}
-
-:root[data-theme="light"] {
   color-scheme: light;
   --bg: #f6f5f1;
   --surface: #ffffff;
@@ -41,6 +20,27 @@
   --tint-1: rgb(79 70 229 / 7%);
   --tint-2: rgb(13 148 136 / 7%);
   --shadow: 0 1px 2px rgb(17 24 39 / 4%), 0 12px 32px -16px rgb(17 24 39 / 18%);
+  --display: 'Instrument Serif', Georgia, serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0d12;
+  --surface: #12151c;
+  --ink: #f3f4f6;
+  --text: #c4c9d2;
+  --muted: #8b93a1;
+  --line: #232834;
+  --accent: #a5b4fc;
+  --accent-2: #5eead4;
+  --accent-soft: rgb(165 180 252 / 10%);
+  --warm: #fdba74;
+  --grad: linear-gradient(110deg, #a5b4fc 0%, #5eead4 100%);
+  --tint-1: rgb(165 180 252 / 7%);
+  --tint-2: rgb(94 234 212 / 5%);
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 16px 40px -18px rgb(0 0 0 / 70%);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -83,9 +83,9 @@ p, li, dd, figcaption { text-wrap: pretty; }
 .theme-toggle:active { transform: scale(.94); }
 .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .theme-toggle svg { width: 18px; height: 18px; }
-.theme-toggle .icon-moon { display: none; }
-:root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
-:root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
 /* Layout */
 .layout {
