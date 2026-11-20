@@ -1,3 +1,22 @@
+// Dark by default; the toggle switches to light and remembers the choice.
+const themeToggle = document.querySelector('.theme-toggle');
+if (themeToggle) {
+  const root = document.documentElement;
+  const sync = () => {
+    const label = root.dataset.theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+    themeToggle.setAttribute('aria-label', label);
+    themeToggle.title = label;
+  };
+  sync();
+  themeToggle.addEventListener('click', () => {
+    const light = root.dataset.theme !== 'light';
+    if (light) root.dataset.theme = 'light'; else delete root.dataset.theme;
+    try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
+    sync();
+    document.dispatchEvent(new Event('themechange'));
+  });
+}
+
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
@@ -491,7 +510,7 @@ if (canvas) {
   canvas.addEventListener('pointerup', release);
   canvas.addEventListener('pointercancel', release);
 
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readPalette(); draw(); });
+  document.addEventListener('themechange', () => { readPalette(); draw(); });
 
   let visible = true;
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }).observe(canvas);

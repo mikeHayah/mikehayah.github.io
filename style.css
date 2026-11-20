@@ -3,7 +3,30 @@
 @font-face { font-family: 'Instrument Serif'; src: url('fonts/instrument-serif.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Instrument Serif'; src: url('fonts/instrument-serif-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
 
+/* Dark is the default; the toggle in the corner switches to the light palette below. */
 :root {
+  color-scheme: dark;
+  --bg: #0b0d12;
+  --surface: #12151c;
+  --ink: #f3f4f6;
+  --text: #c4c9d2;
+  --muted: #8b93a1;
+  --line: #232834;
+  --accent: #a5b4fc;
+  --accent-2: #5eead4;
+  --accent-soft: rgb(165 180 252 / 10%);
+  --warm: #fdba74;
+  --grad: linear-gradient(110deg, #a5b4fc 0%, #5eead4 100%);
+  --tint-1: rgb(165 180 252 / 7%);
+  --tint-2: rgb(94 234 212 / 5%);
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 16px 40px -18px rgb(0 0 0 / 70%);
+  --display: 'Instrument Serif', Georgia, serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
   --bg: #f6f5f1;
   --surface: #ffffff;
   --ink: #111827;
@@ -18,28 +41,6 @@
   --tint-1: rgb(79 70 229 / 7%);
   --tint-2: rgb(13 148 136 / 7%);
   --shadow: 0 1px 2px rgb(17 24 39 / 4%), 0 12px 32px -16px rgb(17 24 39 / 18%);
-  --display: 'Instrument Serif', Georgia, serif;
-  --sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0b0d12;
-    --surface: #12151c;
-    --ink: #f3f4f6;
-    --text: #c4c9d2;
-    --muted: #8b93a1;
-    --line: #232834;
-    --accent: #a5b4fc;
-    --accent-2: #5eead4;
-    --accent-soft: rgb(165 180 252 / 10%);
-    --warm: #fdba74;
-    --grad: linear-gradient(110deg, #a5b4fc 0%, #5eead4 100%);
-    --tint-1: rgb(165 180 252 / 7%);
-    --tint-2: rgb(94 234 212 / 5%);
-    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 16px 40px -18px rgb(0 0 0 / 70%);
-  }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -70,6 +71,21 @@ p, li, dd, figcaption { text-wrap: pretty; }
 
 .skip-link { position: absolute; left: 16px; top: -48px; z-index: 20; padding: 8px 14px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 14px; }
 .skip-link:focus { top: 16px; }
+
+.theme-toggle {
+  position: fixed; top: 16px; right: 16px; z-index: 15;
+  display: grid; place-items: center; width: 40px; height: 40px; padding: 0;
+  border: 1px solid var(--line); border-radius: 50%;
+  background: var(--surface); color: var(--muted); box-shadow: var(--shadow);
+  cursor: pointer; transition: color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+.theme-toggle:active { transform: scale(.94); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.theme-toggle svg { width: 18px; height: 18px; }
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
 /* Layout */
 .layout {
@@ -370,21 +386,13 @@ body:has(.doc-dialog[open]) { overflow: hidden; }
 .paper-role span { margin-right: 10px; color: var(--muted); font: 500 11px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .paper-links { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 14px; }
 
-/* Featured paper: text and a graphical abstract side by side when the column is wide enough;
-   the figure opens the full animation. */
-#publication { container: publication / inline-size; }
-.paper.is-featured { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 32px; }
-.paper-figure { max-width: 340px; margin-top: 24px; }
+/* Featured paper: the workflow diagram runs full width under the text; clicking enlarges it. */
+.paper-figure { margin-top: 24px; }
 .paper-figure a { position: relative; display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fdfcfe; cursor: zoom-in; }
 .paper-figure a:focus-visible { outline-offset: 3px; }
 .paper-figure img { display: block; width: 100%; height: auto; }
 .paper-figure a:hover .slide-zoom, .paper-figure a:focus-visible .slide-zoom { opacity: 1; transform: none; }
 .paper-figure figcaption { margin-top: 8px; color: var(--muted); font: 400 11.5px/1.5 var(--mono); }
-@container publication (min-width: 680px) {
-  .paper.is-featured { grid-template-columns: minmax(0, 1fr) 232px; }
-  .paper.is-featured .paper-figure { grid-column: 2; grid-row: 1; max-width: none; margin-top: 4px; }
-  .paper.is-featured > :not(.paper-main, .paper-figure) { grid-column: 1 / -1; }
-}
 
 .pipeline { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 32px; }
 .pipeline li { position: relative; display: flex; flex-direction: column; gap: 2px; padding: 22px 14px 0 0; border-top: 1px solid var(--line); }

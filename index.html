@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Michael Hanna — machine-learning researcher building models that represent biological systems, learn their dynamics and generate molecules where data are scarce, grounded in physics and mechanism.">
-    <meta name="color-scheme" content="light dark">
+    <meta name="color-scheme" content="dark light">
     <title>Michael Hanna — Machine Learning for Biomedicine</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2315171c'/%3E%3Ctext x='32' y='43' font-size='30' text-anchor='middle' fill='%23f8f7f3' font-family='Georgia,serif'%3EMH%3C/text%3E%3C/svg%3E">
     <link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
@@ -35,11 +35,16 @@
         "sameAs": ["https://github.com/mikeHayah", "https://orcid.org/0009-0004-3854-4828", "https://www.linkedin.com/in/michael-g-hanna"]
       }
     </script>
+    <script>try { if (localStorage.getItem('theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}</script>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
+    <button type="button" class="theme-toggle" aria-label="Switch to light mode" title="Switch to light mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5a8.5 8.5 0 1 0 10.8 10.8z"/></svg>
+    </button>
 
     <div class="layout">
       <header class="intro">
@@ -226,12 +231,12 @@
             </div>
 
             <figure class="paper-figure">
-              <a href="media/qalpa-property-space.gif" data-zoom data-zoom-title="QALPA — active-learning walk through property space" data-zoom-alt="Animation: over four active-learning rounds (plan, acquire, evaluate, augment), QALPA walks a planned corridor through a sparsely sampled region of the HOMO–LUMO gap versus MBD energy plane until the corridor is covered.">
-                <img src="media/qalpa-property-space-final.png" width="640" height="640" loading="lazy" decoding="async" alt="Final active-learning round in the HOMO–LUMO gap versus MBD energy plane: the planned corridor through a sparsely sampled region is fully covered after four rounds.">
+              <a href="media/qalpa.png" data-zoom data-zoom-title="QALPA — active-learning workflow">
+                <img src="media/qalpa.png" width="3200" height="1800" loading="lazy" decoding="async" alt="QALPA workflow. A GPU forward job fine-tunes the equivariant diffusion model with weighted replay of all data, plans targets with a kernel density estimate along a sparse band of property space, and generates molecules at every target. A CPU backward job screens them by QED and SA score, relaxes them with EquiDTB, DFTB+ or FHI-aims, computes quantum-mechanical properties such as HOMO–LUMO gap, MBD energy and dipole, and keeps the hits that land within tolerance of their target. Hits are added to the property space and the loop repeats until the iteration limit, giving the final dataset.">
                 <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span class="sr-only">Play the animation</span>
+                <span class="sr-only">Enlarge the diagram</span>
               </a>
-              <figcaption>After four rounds the sparse target corridor is covered. Illustrative.</figcaption>
+              <figcaption>The QALPA loop: a GPU forward job plans and generates, a CPU backward job screens, relaxes and evaluates.</figcaption>
             </figure>
 
             <ol class="pipeline" aria-label="QALPA active-learning loop">
