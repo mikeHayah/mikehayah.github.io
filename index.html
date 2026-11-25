@@ -423,15 +423,15 @@
                   </a>
                   <div class="slide-body">
                     <p class="slide-meta"><span class="slide-theme t1">01 Representation</span><span>Bioimage analysis</span></p>
-                    <h3 class="slide-title">PrismSeg — Fine and coarse structures in one network</h3>
-                    <p class="slide-hook">Thin structures are the first thing a segmentation loses.</p>
-                    <p class="slide-text">Segmentation of microscopy images and z-stacks. Like a prism splitting light, the bottleneck of an Attention U-Net splits deep features into bands of different receptive fields, each routed to its own decoder stage, while gated skip connections carry fine detail to the output.</p>
+                    <h3 class="slide-title">PrismSeg — Multi-scale segmentation for microscopy</h3>
+                    <p class="slide-hook">Split features by scale, like light through a prism.</p>
+                    <p class="slide-text">An Attention U-Net for segmenting microscopy images and z-stacks. In its bottleneck, parallel 1×1 and dilated 3×3 convolutions split the deepest features into four receptive-field bands, and each band feeds its own decoder stage, so every stage receives context at its own scale. Gated skip connections pass full-resolution encoder features to the decoder, and cross-attention keeps the whole model compact.</p>
                     <dl class="slide-points">
-                      <div><dt>Multi-scale prism</dt><dd>One bottleneck sees fine and coarse structures at once</dd></div>
-                      <div><dt>Detail-preserving skips</dt><dd>Attention gates that let thin structures reach the output</dd></div>
-                      <div><dt>Lean design</dt><dd>From 609M to 35.5M parameters</dd></div>
+                      <div><dt>Multi-scale prism</dt><dd>Dilated convolutions give four receptive fields, one per decoder stage</dd></div>
+                      <div><dt>Detail-preserving skips</dt><dd>Per-pixel sigmoid gates raise the skip-to-decoder signal from 0.003 to 0.56</dd></div>
+                      <div><dt>Efficient attention</dt><dd>Cross-attention over 64 bottleneck tokens keeps the model at 35.5M parameters, about the size of a standard U-Net</dd></div>
                     </dl>
-                    <ul class="tags"><li>Attention U-Net</li><li>Segmentation</li><li>Microscopy</li><li>PyTorch</li></ul>
+                    <ul class="tags"><li>Attention U-Net</li><li>Dilated convolutions</li><li>Cross-attention</li><li>Microscopy</li></ul>
                     <div class="slide-actions">
                       <a class="btn btn-ghost btn-sm" href="https://github.com/mikeHayah/PrismSeg" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
                     </div>
