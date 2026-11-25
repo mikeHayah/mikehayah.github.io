@@ -181,7 +181,7 @@
                 <ul class="theme-links">
                   <li><a class="theme-link" href="#project-jepa">Cross-modal JEPA <span aria-hidden="true">→</span></a></li>
                   <li><a class="theme-link" href="#project-huggingligand">HuggingLigand <span aria-hidden="true">→</span></a></li>
-                  <li><a class="theme-link" href="#project-notch">Notch surrogate <span aria-hidden="true">→</span></a></li>
+                  <li><a class="theme-link" href="#project-notch">Morphogenesis <span aria-hidden="true">→</span></a></li>
                 </ul>
               </div>
             </li>
@@ -206,7 +206,7 @@
                 <p>Physics is the check on the other two corners. Coupling learning with quantum chemistry, mechanistic ODEs and multiphysics simulation keeps models honest — checked against, and improved by, physical evaluation — and keeps what they learn interpretable.</p>
                 <ul class="theme-links">
                   <li><a class="theme-link" href="#project-qalpa">QALPA <span aria-hidden="true">→</span></a></li>
-                  <li><a class="theme-link" href="#project-notch">Notch surrogate <span aria-hidden="true">→</span></a></li>
+                  <li><a class="theme-link" href="#project-notch">Morphogenesis <span aria-hidden="true">→</span></a></li>
                   <li><a class="theme-link" href="#project-photoacoustics">Photoacoustics <span aria-hidden="true">→</span></a></li>
                 </ul>
               </div>
@@ -342,8 +342,9 @@
             <div class="slider-tabs" role="tablist" aria-label="Choose a project">
               <a role="tab" id="tab-jepa" href="#project-jepa" aria-controls="project-jepa">JEPA</a>
               <a role="tab" id="tab-qalpa" href="#project-qalpa" aria-controls="project-qalpa">QALPA</a>
+              <a role="tab" id="tab-notch" href="#project-notch" aria-controls="project-notch">Morphogenesis</a>
+              <a role="tab" id="tab-prismseg" href="#project-prismseg" aria-controls="project-prismseg">PrismSeg</a>
               <a role="tab" id="tab-huggingligand" href="#project-huggingligand" aria-controls="project-huggingligand">HuggingLigand</a>
-              <a role="tab" id="tab-notch" href="#project-notch" aria-controls="project-notch">Notch</a>
               <a role="tab" id="tab-photoacoustics" href="#project-photoacoustics" aria-controls="project-photoacoustics">Photoacoustics</a>
               <a role="tab" id="tab-surgical" href="#project-surgical" aria-controls="project-surgical">Surgical scenes</a>
             </div>
@@ -391,28 +392,6 @@
                   </div>
                 </article>
 
-                <article class="slide" id="project-huggingligand" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-huggingligand">
-                  <a class="slide-media" href="media/huggingligand.gif" data-zoom>
-                    <img src="media/huggingligand.gif" width="884" height="284" loading="lazy" decoding="async" alt="Animation: protein sequences and ligand SMILES pass through frozen ProtT5-XL and ChemBERTa encoders; the mean-pooled protein and ligand vectors are saved together per pair and versioned on the Hugging Face Hub.">
-                    <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    <span class="sr-only">Enlarge animation</span>
-                  </a>
-                  <div class="slide-body">
-                    <p class="slide-meta"><span class="slide-theme t1">01 Representation</span><span>Course project</span></p>
-                    <h3 class="slide-title">HuggingLigand — Protein–ligand binding affinity</h3>
-                    <p class="slide-hook">Learning the language of a molecular hug.</p>
-                    <p class="slide-text">Binding-affinity prediction from frozen foundation-model embeddings — ProtT5-XL for protein sequences, ChemBERTa for ligand SMILES — trained on curated BindingDB data.</p>
-                    <dl class="slide-points">
-                      <div><dt>Foundation models</dt><dd>Embedding pipeline on pretrained protein and ligand models</dd></div>
-                      <div><dt>Research software</dt><dd>Git, GitLab CI/CD, pytest, Poetry, Sphinx, SLURM; published on Zenodo and the Hugging Face Hub</dd></div>
-                    </dl>
-                    <ul class="tags"><li>ProtT5-XL</li><li>ChemBERTa</li><li>BindingDB</li><li>Hugging Face Hub</li></ul>
-                    <div class="slide-actions">
-                      <a class="btn btn-ghost btn-sm" href="https://github.com/mikeHayah/HuggingLigand" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
-                    </div>
-                  </div>
-                </article>
-
                 <article class="slide" id="project-notch" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-notch">
                   <a class="slide-media" href="media/notch-surrogate.gif" data-zoom>
                     <img src="media/notch-surrogate.gif" width="884" height="284" loading="lazy" decoding="async" alt="Animation: a four-ODE Notch–Delta model in each cell sorts a tissue into sender and receiver cells that segregate by E-cadherin adhesion; a neural surrogate then replaces the ODEs, feeding updated neighbour signals back each step.">
@@ -432,6 +411,51 @@
                     <ul class="tags"><li>BayesFlow</li><li>Neural surrogates</li><li>ODEs</li><li>Cellular Potts</li></ul>
                     <div class="slide-actions">
                       <a class="btn btn-ghost btn-sm" href="https://github.com/mikeHayah/Mechanistic-BayseFlowNN" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="slide" id="project-prismseg" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-prismseg">
+                  <a class="slide-media" href="media/prismseg.gif" data-zoom>
+                    <img src="media/prismseg.gif" width="1204" height="284" loading="lazy" decoding="async" alt="Animation: an Attention U-Net encodes a microscopy image down to 1/32 resolution; a prism bottleneck splits the deepest features into bands of different receptive fields, and each band is routed through a gated skip connection to its own decoder stage, from 1/16 back up to full resolution.">
+                    <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span class="sr-only">Enlarge animation</span>
+                  </a>
+                  <div class="slide-body">
+                    <p class="slide-meta"><span class="slide-theme t1">01 Representation</span><span>Bioimage analysis</span></p>
+                    <h3 class="slide-title">PrismSeg — Thin and thick vessels in one network</h3>
+                    <p class="slide-hook">Thin vessels are the first thing a segmentation loses.</p>
+                    <p class="slide-text">Vessel segmentation for microscopy z-stacks, such as liver sinusoids. Like a prism splitting light, the bottleneck of an Attention U-Net splits deep features into bands of different receptive fields, each routed to its own decoder stage, while gated skip connections carry fine detail to the output.</p>
+                    <dl class="slide-points">
+                      <div><dt>Multi-scale prism</dt><dd>One bottleneck sees fine and coarse vessels at once</dd></div>
+                      <div><dt>Detail-preserving skips</dt><dd>Attention gates that let thin structures reach the output</dd></div>
+                      <div><dt>Lean design</dt><dd>From 609M to 35.5M parameters</dd></div>
+                    </dl>
+                    <ul class="tags"><li>Attention U-Net</li><li>Segmentation</li><li>Microscopy</li><li>PyTorch</li></ul>
+                    <div class="slide-actions">
+                      <a class="btn btn-ghost btn-sm" href="https://github.com/mikeHayah/PrismSeg" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="slide" id="project-huggingligand" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-huggingligand">
+                  <a class="slide-media" href="media/huggingligand.gif" data-zoom>
+                    <img src="media/huggingligand.gif" width="884" height="284" loading="lazy" decoding="async" alt="Animation: protein sequences and ligand SMILES pass through frozen ProtT5-XL and ChemBERTa encoders; the mean-pooled protein and ligand vectors are saved together per pair and versioned on the Hugging Face Hub.">
+                    <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span class="sr-only">Enlarge animation</span>
+                  </a>
+                  <div class="slide-body">
+                    <p class="slide-meta"><span class="slide-theme t1">01 Representation</span><span>Course project</span></p>
+                    <h3 class="slide-title">HuggingLigand — Protein–ligand binding affinity</h3>
+                    <p class="slide-hook">Learning the language of a molecular hug.</p>
+                    <p class="slide-text">Binding-affinity prediction from frozen foundation-model embeddings — ProtT5-XL for protein sequences, ChemBERTa for ligand SMILES — trained on curated BindingDB data.</p>
+                    <dl class="slide-points">
+                      <div><dt>Foundation models</dt><dd>Embedding pipeline on pretrained protein and ligand models</dd></div>
+                      <div><dt>Research software</dt><dd>Git, GitLab CI/CD, pytest, Poetry, Sphinx, SLURM; published on Zenodo and the Hugging Face Hub</dd></div>
+                    </dl>
+                    <ul class="tags"><li>ProtT5-XL</li><li>ChemBERTa</li><li>BindingDB</li><li>Hugging Face Hub</li></ul>
+                    <div class="slide-actions">
+                      <a class="btn btn-ghost btn-sm" href="https://github.com/mikeHayah/HuggingLigand" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
                     </div>
                   </div>
                 </article>
@@ -501,7 +525,7 @@
                 <p class="entry-links">
                   <span class="entry-links-label">Course projects</span>
                   <a class="entry-link" href="#project-qalpa">QALPA <span aria-hidden="true">→</span></a>
-                  <a class="entry-link" href="#project-notch">Notch surrogate <span aria-hidden="true">→</span></a>
+                  <a class="entry-link" href="#project-notch">Morphogenesis <span aria-hidden="true">→</span></a>
                   <a class="entry-link" href="#project-huggingligand">HuggingLigand <span aria-hidden="true">→</span></a>
                 </p>
               </div>
