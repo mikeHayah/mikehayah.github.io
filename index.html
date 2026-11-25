@@ -423,11 +423,11 @@
                   </a>
                   <div class="slide-body">
                     <p class="slide-meta"><span class="slide-theme t1">01 Representation</span><span>Bioimage analysis</span></p>
-                    <h3 class="slide-title">PrismSeg — Thin and thick vessels in one network</h3>
-                    <p class="slide-hook">Thin vessels are the first thing a segmentation loses.</p>
-                    <p class="slide-text">Vessel segmentation for microscopy z-stacks, such as liver sinusoids. Like a prism splitting light, the bottleneck of an Attention U-Net splits deep features into bands of different receptive fields, each routed to its own decoder stage, while gated skip connections carry fine detail to the output.</p>
+                    <h3 class="slide-title">PrismSeg — Fine and coarse structures in one network</h3>
+                    <p class="slide-hook">Thin structures are the first thing a segmentation loses.</p>
+                    <p class="slide-text">Segmentation of microscopy images and z-stacks. Like a prism splitting light, the bottleneck of an Attention U-Net splits deep features into bands of different receptive fields, each routed to its own decoder stage, while gated skip connections carry fine detail to the output.</p>
                     <dl class="slide-points">
-                      <div><dt>Multi-scale prism</dt><dd>One bottleneck sees fine and coarse vessels at once</dd></div>
+                      <div><dt>Multi-scale prism</dt><dd>One bottleneck sees fine and coarse structures at once</dd></div>
                       <div><dt>Detail-preserving skips</dt><dd>Attention gates that let thin structures reach the output</dd></div>
                       <div><dt>Lean design</dt><dd>From 609M to 35.5M parameters</dd></div>
                     </dl>
