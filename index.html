@@ -477,14 +477,11 @@
                 </article>
 
                 <article class="slide" id="project-surgical" role="tabpanel" aria-roledescription="slide" aria-labelledby="tab-surgical">
-                  <div class="slide-media is-steps" aria-hidden="true">
-                    <ol class="scene-steps">
-                      <li><b>Anatomy</b><span>geometry-driven organs</span></li>
-                      <li><b>Organ motion</b><span>non-rigid deformation</span></li>
-                      <li><b>Camera motion</b><span>intraoperative views</span></li>
-                      <li><b>Imaging</b><span>emulated conditions</span></li>
-                    </ol>
-                  </div>
+                  <a class="slide-media" href="media/surgical-scenes.gif" data-zoom>
+                    <img src="media/surgical-scenes.gif" width="884" height="284" loading="lazy" decoding="async" alt="Animation: Blender builds a random abdominal scene (a deformable organ, rigid organs, abdominal wall, fat, ligaments and fixed attachments); a SOFA finite-element simulation deforms the organ under gravity and a force; a camera with two attached lights moves through random viewpoints over 15 frames; and EEVEE renders color, depth, normal and segmentation images.">
+                    <span class="slide-zoom" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span class="sr-only">Enlarge animation</span>
+                  </a>
                   <div class="slide-body">
                     <p class="slide-meta"><span class="slide-theme t2">02 Simulation</span><span>DKFZ / NCT · Translational Surgical Oncology</span></p>
                     <h3 class="slide-title">Non-rigid surgical scene generation</h3>
